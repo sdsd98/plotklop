@@ -6,15 +6,14 @@ text-align: right;
 }
     
 
-.media{
+.media {
     width: 33%;
-    height: auto;
-
+    height: auto; 
 }
-.idk{
-    width: 100%;
+
+.idk {
     display: flex;
+    flex-wrap: wrap; 
     justify-content: space-between; 
-    gap: 10px;
-    flex-wrap: wrap;
+    gap: 10px; 
 }
