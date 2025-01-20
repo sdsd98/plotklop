@@ -25,3 +25,8 @@ color: black;
 left: auto;
 
 }
+.buttons{
+    font-size: large;
+    padding-left: 10%;
+    color:blue ;
+}
