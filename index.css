@@ -11,3 +11,8 @@ text-align: right;
     height: auto;
 
 }
+.sloupce{
+    width: 100%;
+    height: auto;   
+    display: flex;
+}
