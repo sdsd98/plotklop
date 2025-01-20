@@ -30,3 +30,11 @@ left: auto;
     padding-left: 10%;
     color:blue ;
 }
+.buttons label {
+    display: block; 
+    padding: 8px 0; 
+    border-bottom: 1px solid lightgray; 
+}
+.buttons label:last-child {
+    border-bottom: none;
+}
