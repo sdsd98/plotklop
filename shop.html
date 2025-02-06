@@ -74,6 +74,79 @@
     <footer>
         <p>&copy; 2025 Zelený ráj | Tento projekt je vytvořen pro studijní účely</p>
     </footer>
-
+    <script>
+        
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+       
+        document.querySelectorAll(".add-to-cart").forEach(button => {
+            button.addEventListener("click", () => {
+                const name = button.getAttribute("data-name");
+                const price = parseFloat(button.getAttribute("data-price"));
+    
+                addToCart(name, price);
+            });
+        });
+    
+        
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1; 
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+    
+            updateCart();
+        }
+    
+      
+        function updateCart() {
+            const cartList = document.getElementById("cart-items");
+            const totalPriceElement = document.getElementById("total-price");
+    
+            cartList.innerHTML = ""; 
+            let totalPrice = 0;
+    
+            cart.forEach(item => {
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `${item.name} - ${item.quantity} ks - ${item.price * item.quantity} Kč 
+                    <button class="remove-item" data-name="${item.name}">❌</button>`;
+    
+                cartList.appendChild(listItem);
+                totalPrice += item.price * item.quantity;
+            });
+    
+            totalPriceElement.innerText = totalPrice;
+    
+            
+            localStorage.setItem("cart", JSON.stringify(cart));
+    
+            
+            document.querySelectorAll(".remove-item").forEach(button => {
+                button.addEventListener("click", () => {
+                    const name = button.getAttribute("data-name");
+                    removeFromCart(name);
+                });
+            });
+        }
+    
+        
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            updateCart();
+        }
+    
+        // Funkce pro vyprázdnění košíku
+        document.getElementById("clear-cart").addEventListener("click", () => {
+            cart = [];
+            updateCart();
+        });
+    
+        
+        updateCart();
+    </script>
+    
 </body>
 </html>
