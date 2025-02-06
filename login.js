@@ -1,9 +1,10 @@
-
 document.addEventListener("DOMContentLoaded", function () {
-    const loginForm = document.getElementById("loginForm");
+    console.log("Script Loaded");
+
+    const loginForm = document.getElementById("login-form"); // Updated ID
 
     if (!loginForm) {
-        console.error("Error: loginForm element not found!");
+        console.error("Error: login-form element not found!");
         return;
     }
 
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             console.log("Redirecting to index.html...");
 
-            window.location.replace("index.html");
+            window.location.href = "index.html"; // Ensure this file exists
         } else {
             errorMessage.textContent = "Špatné uživatelské jméno nebo heslo!";
             errorMessage.style.color = "red";
