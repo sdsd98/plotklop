@@ -182,3 +182,6 @@ body.login-page {
     font-size: 14px;
     margin-top: 10px;
 }
+#list_idk{
+    list-style: none;
+}
