@@ -249,23 +249,26 @@ ul li::before {
 .border-icons {
     position: fixed;
     top: 50%;
-    transform: translateY(-50%); /* Centers the images vertically */
-    width: 70px; /* Adjust image size */
+    transform: translateY(-50%);
+    width: 120px; /* Increases image size */
     height: auto;
-    animation: float 3s infinite alternate;
+    animation: slide 5s infinite alternate ease-in-out;
 }
 
 /* Position left image */
 .left-icon {
-    left: 20px; /* Adjust spacing from the left edge */
+    left: 20px; /* Adjusts spacing from the left edge */
 }
 
 /* Position right image */
 .right-icon {
-    right: 20px; /* Adjust spacing from the right edge */
+    right: 20px; /* Adjusts spacing from the right edge */
 }
 
-@keyframes float {
+/* Sliding Animation */
+@keyframes slide {
     0% { transform: translateY(-50%) translateX(0); }
-    100% { transform: translateY(-45%) translateX(5px); }
+    50% { transform: translateY(-45%) translateX(10px); }
+    100% { transform: translateY(-50%) translateX(-10px); }
 }
+
