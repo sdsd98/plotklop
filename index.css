@@ -1,8 +1,8 @@
 /* Global Styles */
 body {
     display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center elements */
+    flex-direction: column; 
+    align-items: center; 
     justify-content: flex-start;
     min-height: 100vh;
     margin: 0;
@@ -10,25 +10,23 @@ body {
 }
 
 main {
-    width: 80%; 
-    max-width: 900px; 
-    text-align: center;
-    
+    margin-top: 80px; /* Pushes content down so navbar is visible */
 }
 
 /* Navigation Bar */
 .navbar {
     width: 100%;
-    background-color: crimson; 
+    background-color: crimson; /* Ensures navbar is red */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    position: fixed;
+    position: fixed; /* Keeps navbar at the top */
     top: 0;
     left: 0;
-    z-index: 1000; 
+    z-index: 1000; /* Ensures navbar is above content */
 }
+
 
     
 
@@ -93,7 +91,24 @@ main {
 
 .nav_button:hover {
     background-color: darkgray;
+
 }
+
+.list_nav a {
+    text-decoration: none;
+    font-size: large;
+    font-weight: bold;
+    color: white; 
+}
+
+.list_nav li#Home a {
+    color: yellow; 
+}
+
+.list_nav li#Contact a {
+    color: lightgray; 
+}
+
 
 /* Registrace */
 .register-container {
