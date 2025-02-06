@@ -103,7 +103,7 @@ main {
     font-weight: bold;
     font-size: 13px;
     transition: background 0.3s ease-in-out;
-    padding-right: 40px;
+    padding-right: 60px;
 }
 
 .nav_button:hover {
