@@ -12,14 +12,19 @@ body {
 main {
     width: 80%; 
     max-width: 900px; /
-    text-align: center; 
+    text-align: center;
 }
 
 /* Navigation Bar */
 .navbar { 
-    background-color: crimson;
-    font-family: 'Courier New', Courier, monospace;
-    padding: 15px;
+    .navbar {
+        width: 100%; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+    }
+    
 }
 
 .navdiv {
@@ -63,8 +68,10 @@ main {
 
 .nav_buttons {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 }
+
 
 .nav_button {
     background-color: black;
