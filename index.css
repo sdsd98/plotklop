@@ -11,7 +11,9 @@ body {
  
     }
     
-
+    ul{
+        list-style: none;
+    }
 
 main {
     margin-top: 150px; /* obsah dolu */
@@ -183,7 +185,4 @@ body.login-page {
     color: red;
     font-size: 14px;
     margin-top: 10px;
-}
-ul{
-    list-style: none;
 }
