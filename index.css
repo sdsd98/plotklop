@@ -276,4 +276,14 @@ ul li::before {
     50% { transform: translateY(-45%) translateX(10px); }
     100% { transform: translateY(-50%) translateX(-10px); }
 }
-
+/* shop*/
+.product img {
+    width: 150px;  
+    height: auto; 
+    border-radius: 10px; 
+    object-fit: cover;  
+}
+.product {
+    max-width: 200px; 
+    text-align: center; 
+}
