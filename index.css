@@ -5,53 +5,71 @@ body {
     padding: 0;
 }
 /* navigace*/
-.navbar{ 
-    text-decoration: none;
+.navbar { 
     background-color: crimson;
     font-family: 'Courier New', Courier, monospace;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 15px;
 }
-.navdiv{
+
+.navdiv {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.logo a{
+
+.logo a {
     font-size: 35px;
     font-weight: 600;
     color: white;
     text-decoration: none;
 }
-.list_nav{
+
+.list_nav {
     list-style: none;
     display: flex;
+    padding: 0;
+    margin: 0;
 }
-#Home{
-color: green;
-font-size: large;
-font-weight: bold;
-margin-right: 25px;
-text-decoration: none;
+
+.list_nav li {
+    margin-right: 25px;
 }
+
+.list_nav a {
+    text-decoration: none;
+    font-size: large;
+    font-weight: bold;
+    color: white;
+}
+
+#Home {
+    color: green;
+}
+
+#Contact {
+    color: black;
+}
+
+.nav_buttons {
+    display: flex;
+    gap: 10px; /* Adds spacing between buttons */
+}
+
 .nav_button {
-    box-sizing: border-box;
     background-color: black;
-    margin-left: 10px;
+    border: none;
     border-radius: 10px;
     padding: 10px;
-    width: 90px;
-  }
-  
-  .nav_button a {
+    width: 100px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.nav_button a {
     display: block;
     text-align: center;
+    text-decoration: none;
     color: whitesmoke;
     font-weight: bold;
     font-size: 15px;
-  }
-  
-#Contact{
-    text-decoration: none;
-    color: black;
 }
