@@ -24,7 +24,7 @@ body {
 }
 .list_nav{
     list-style: none;
-    display: inline-block;
+    display: flex;
 }
 #Home{
 color: blue;
