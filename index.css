@@ -5,3 +5,14 @@ body {
     padding: 0;
 }
 
+.navbar{ 
+    text-decoration: none;
+    background-color: darkgreen;
+    font-family: 'Courier New', Courier, monospace;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.navdiv{
+    display: flexbox;
+    align-items: center;
+}
