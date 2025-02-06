@@ -5,39 +5,3 @@ body {
     padding: 0;
 }
 
-/* styl navigace*/
-nav {
-    background-color: #333;
-}
-
-/* styl ul list */
-nav ul {
-    list-style-type: none; /* Remove bullet points */
-    margin: 0;
-    padding: 0;
-    display: flex; /* Use Flexbox to arrange items horizontally */
-    justify-content: center; /* Center the list items horizontally */
-}
-
-/* Styling each list item */
-nav ul li {
-    margin: 0 15px; /* Add space between items */
-}
-
-/* Styling the links */
-nav ul li a {
-    display: block;
-    padding: 14px 20px;
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    font-weight: 500;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-/* Hover effect for links */
-nav ul li a:hover {
-    background-color: #007bff; /* Change background color on hover */
-    transform: translateY(-2px); /* Add lift effect */
-}
