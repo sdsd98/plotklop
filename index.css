@@ -17,7 +17,6 @@ main {
 }
 
 /* Navigation Bar */
-.navbar { 
     .navbar {
         width: 100%; 
         display: flex;
@@ -26,7 +25,7 @@ main {
         padding: 15px;
     }
     
-}
+
 
 .navdiv {
     display: flex;
