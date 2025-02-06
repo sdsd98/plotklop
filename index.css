@@ -1,11 +1,11 @@
-
+/* Global Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-/* Navigace */
+/* Navigation Bar */
 .navbar { 
     background-color: crimson;
     font-family: 'Courier New', Courier, monospace;
@@ -43,7 +43,6 @@ body {
     color: white;
 }
 
-
 .list_nav li#Home a {
     color: white;
 }
@@ -72,7 +71,8 @@ body {
 .nav_button:hover {
     background-color: darkgray;
 }
-/* registrace*/
+
+/* Registration Form */
 .register-container {
     background: white;
     padding: 20px;
@@ -111,9 +111,9 @@ button:hover {
     font-size: 14px;
     margin-top: 10px;
 }
-/*login*/
-body {
-    font-family: Arial, sans-serif;
+
+/* Login Form */
+body.login-page {
     background-color: #f4f4f4;
     display: flex;
     justify-content: center;
@@ -129,28 +129,6 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 300px;
-}
-
-input {
-    width: 100%;
-    padding: 8px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: crimson;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: darkred;
 }
 
 .error-message {
