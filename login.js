@@ -24,3 +24,10 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         errorMessage.style.color = "red";
     }
 });
+// Check if there are any users stored in localStorage
+if (!localStorage.getItem("users")) {
+    let defaultUsers = [
+        { username: "admin", email: "admin@example.com", password: "1234" }
+    ];
+    localStorage.setItem("users", JSON.stringify(defaultUsers));
+}
