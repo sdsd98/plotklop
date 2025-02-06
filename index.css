@@ -251,7 +251,7 @@ ul li::before {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    width: 120px; /* Increases image size */
+    width: 500px; /* Increases image size */
     height: auto;
     animation: slide 5s infinite alternate ease-in-out;
 }
