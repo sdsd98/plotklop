@@ -87,8 +87,8 @@ main {
 .nav_buttons {
     display: flex;
     align-items: center;
-    gap: 10px; 
-    margin-left: 40px; 
+    gap: 15px; 
+    margin-left: 20%; 
 }
 
 
