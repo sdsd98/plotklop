@@ -19,6 +19,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
 
        
         window.location.href = "index.html";
+        console.log("Redirecting to index.html...");
     } else {
         errorMessage.textContent = "Špatné uživatelské jméno nebo heslo!";
         errorMessage.style.color = "red";
