@@ -11,8 +11,9 @@ body {
 
 main {
     width: 80%; 
-    max-width: 900px; /
+    max-width: 900px; 
     text-align: center;
+    
 }
 
 /* Navigation Bar */
