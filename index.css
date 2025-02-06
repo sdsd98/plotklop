@@ -4,7 +4,7 @@ body {
     margin: 0;
     padding: 0;
 }
-
+/* navigace*/
 .navbar{ 
     text-decoration: none;
     background-color: darkgreen;
@@ -21,4 +21,14 @@ body {
     font-size: 35px;
     font-weight: 600;
     color: white;
+}
+.list_nav{
+    list-style: none;
+    display: inline-block;
+}
+#Home{
+color: blue;
+font-size: large;
+font-weight: bold;
+margin-right: 25px;
 }
