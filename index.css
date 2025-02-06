@@ -48,6 +48,7 @@ main {
     font-weight: 600;
     color: white;
     text-decoration: none;
+    margin-right: auto;
 }
 
 .list_nav {
