@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Zelený Ráj</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navdiv">
+            <div class="logo"><a href="index.html">Zelený Ráj</a></div>
+            <ul class="list_nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav_buttons">
+                <button class="nav_button" onclick="window.open('login.html', '_blank')">Přihlásit</button>
+                <button class="nav_button" onclick="window.location.href='register.html'">Registrovat</button>
+            </div>
+        </div>
+    </nav>
+
+    
+    <main>
+        <h1>🛍️ Checkout</h1>
+
+        <!-- Cart Summary -->
+        <h2>🛒 Váš košík</h2>
+        <div id="cart">
+            <ul id="cart-items"></ul>
+            <p><strong>Celková cena: <span id="total-price">0</span> Kč</strong></p>
+        </div>
+
+        
+        <h2>📦 Dodací údaje</h2>
+        <form id="checkout-form">
+            <label for="name">Jméno a příjmení:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="address">Adresa:</label>
+            <input type="text" id="address" name="address" required>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="payment">Způsob platby:</label>
+            <select id="payment" name="payment" required>
+                <option value="card">Kreditní / Debetní karta</option>
+                <option value="cash">Hotovost při doručení</option>
+            </select>
+
+            <button type="submit">Odeslat objednávku</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Zelený ráj | Tento projekt je vytvořen pro studijní účely</p>
+    </footer>
+
+    <script src="checkout.js"></script>
+</body>
+</html>
