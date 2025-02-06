@@ -19,28 +19,27 @@ main {
 /* Navigace */
 .navbar {
     width: 100%;
-    background-color: crimson; 
+    background-color: crimson;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    position: fixed; 
+    padding: 15px 40px; 
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
-    height: 60px; 
+    height: 60px;
 }
-
-
-    
 
 
 .navdiv {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     width: 100%;
-    padding: 0 20px;
+}
+
+.logo {
+    margin-right: auto;
 }
 
 .logo a {
@@ -54,9 +53,9 @@ main {
 .list_nav {
     list-style: none;
     display: flex;
+    gap: 40px; 
+    margin: 0 auto;
     padding: 0;
-    margin: 0;
-    margin-left: auto;
 }
 
 .list_nav li {
@@ -80,8 +79,8 @@ main {
 
 .nav_buttons {
     display: flex;
-    flex-wrap: wrap;
     gap: 10px;
+    margin-left: auto;
 }
 
 
