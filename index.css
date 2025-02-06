@@ -5,64 +5,42 @@ body {
     padding: 0;
 }
 /* navigace*/
-.navbar { 
+.navbar{ 
     text-decoration: none;
     background-color: darkgreen;
     font-family: 'Courier New', Courier, monospace;
     padding-left: 15px;
     padding-right: 15px;
 }
-
-/* Flexbox for better layout */
-.navdiv {
-    display: flex;
+.navdiv{
+    display: flexbox;
     align-items: center;
     justify-content: space-between;
 }
-
-.logo a {
+.logo a{
     font-size: 35px;
     font-weight: 600;
     color: white;
-    text-decoration: none;
 }
-
-.list_nav {
+.list_nav{
     list-style: none;
-    display: flex; /* Use flexbox */
-    gap: 15px;
-    align-items: center;
-    padding: 0;
-    margin: 0;
+    display: inline-block;
 }
-
-.list_nav li {
-    display: inline;
+#Home{
+color: blue;
+font-size: large;
+font-weight: bold;
+margin-right: 25px;
 }
-
-.list_nav a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-/* Special styling for Home */
-#Home a {
-    color: blue;
-    font-size: large;
-    font-weight: bold;
-    margin-right: 25px;
-}
-
-/* Button-like links */
-.nav_button {
+.nav_button{
     background-color: black;
+    margin-left: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    width: 90px;
+}
+.nav_button a {
     color: whitesmoke;
     font-weight: bold;
     font-size: 15px;
-    padding: 10px 15px;
-    border-radius: 10px;
-    text-align: center;
-    display: inline-block;
 }
