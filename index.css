@@ -8,7 +8,7 @@ body {
     margin: 0;
     padding: 0;
     background: linear-gradient(to bottom right, #81c784, #388e3c);
- 
+    font-family: "Poppins", sans-serif;
     }
     
     ul{
@@ -185,4 +185,64 @@ body.login-page {
     color: red;
     font-size: 14px;
     margin-top: 10px;
+}
+
+
+
+/* Headings */
+h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+h3 {
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Paragraphs */
+p {
+    font-size: 1.2em;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto; /* Centers paragraph */
+}
+
+/* Lists */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    font-size: 1.2em;
+    line-height: 1.8;
+}
+
+/* Icons for Lists */
+ul li::before {
+    content: "✔️"; /* Adds checkmark icons */
+    color: yellow;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Make product highlights stand out */
+.important {
+    color: yellow;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    p {
+        font-size: 1.1em;
+    }
 }
