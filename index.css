@@ -204,6 +204,29 @@ input {
     color: green;
 }
 
+/* Registration Page */
+.register-page .register-container {
+    display: flex;
+}
+
+/* Login Page */
+.login-page .login-container {
+    display: flex;
+}
+
+/* Prevent Accidental Display */
+.register-container, .login-container {
+    display: none;
+}
+
+/* Show Only When Correct Page Loads */
+.register-page .register-container,
+.login-page .login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 
 
