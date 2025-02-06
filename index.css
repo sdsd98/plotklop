@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -42,11 +43,12 @@ body {
     color: white;
 }
 
-#Home {
+/* Apply color only to the text, not the li */
+.list_nav li#Home a {
     color: green;
 }
 
-#Contact {
+.list_nav li#Contact a {
     color: black;
 }
 
