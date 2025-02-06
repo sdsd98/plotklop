@@ -1,11 +1,11 @@
-/* General Styles */
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-/* Navigation */
+/* Navigace */
 .navbar { 
     background-color: crimson;
     font-family: 'Courier New', Courier, monospace;
@@ -43,9 +43,9 @@ body {
     color: white;
 }
 
-/* Apply color only to the text, not the li */
+
 .list_nav li#Home a {
-    color: green;
+    color: white;
 }
 
 .list_nav li#Contact a {
