@@ -1,10 +1,10 @@
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
 }
-/* navigace*/
+
+/* Navigation */
 .navbar { 
     background-color: crimson;
     font-family: 'Courier New', Courier, monospace;
@@ -52,24 +52,21 @@ body {
 
 .nav_buttons {
     display: flex;
-    gap: 10px; 
+    gap: 10px;
 }
 
 .nav_button {
     background-color: black;
     border: none;
     border-radius: 10px;
-    padding: 10px;
-    width: 100px;
+    padding: 10px 20px;
     cursor: pointer;
-    display: inline-block;
-}
-
-.nav_button a {
-    display: block;
-    text-align: center;
-    text-decoration: none;
     color: whitesmoke;
     font-weight: bold;
     font-size: 15px;
+    transition: background 0.3s ease-in-out;
+}
+
+.nav_button:hover {
+    background-color: darkgray;
 }
