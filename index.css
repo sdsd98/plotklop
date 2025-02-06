@@ -88,8 +88,9 @@ main {
     display: flex;
     align-items: center;
     gap: 10px; 
-    overflow: hidden; 
+    margin-left: 20px; 
 }
+
 
 
 .nav_button {
