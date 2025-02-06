@@ -29,37 +29,46 @@
     <!--  SHOP CONTENT -->
     <main>
         <h1>🛒 Naše nabídka</h1>
-
+    
         <div class="shop-container">
             <div class="product">
                 <img src="http://upload.wikimedia.org/wikipedia/commons/8/89/Tomato_je.jpg" alt="Rajčata">
                 <h3>Čerstvá rajčata</h3>
                 <p>49 Kč / kg</p>
-                <button>Přidat do košíku</button>
+                <button class="add-to-cart" data-name="Čerstvá rajčata" data-price="49">Přidat do košíku</button>
             </div>
-
+    
             <div class="product">
                 <img src="https://ucarecdn.com/459eb7be-115a-4d85-b1d8-deaabc94c643/-/format/auto/-/preview/3000x3000/-/quality/lighter/" alt="Mrkev">
                 <h3>Organická mrkev</h3>
                 <p>35 Kč / kg</p>
-                <button>Přidat do košíku</button>
+                <button class="add-to-cart" data-name="Organická mrkev" data-price="35">Přidat do košíku</button>
             </div>
-
+    
             <div class="product">
                 <img src="https://www.mashed.com/img/gallery/why-you-should-never-wash-iceberg-lettuce-ahead-of-time/l-intro-1679342305.jpg" alt="Salát">
                 <h3>Křupavý salát</h3>
                 <p>29 Kč / ks</p>
-                <button>Přidat do košíku</button>
+                <button class="add-to-cart" data-name="Křupavý salát" data-price="29">Přidat do košíku</button>
             </div>
-
+    
             <div class="product">
                 <img src="https://static7.depositphotos.com/1005708/789/i/950/depositphotos_7899312-stock-photo-raw-potatoes.jpg" alt="Brambory">
                 <h3>Farmářské brambory</h3>
                 <p>25 Kč / kg</p>
-                <button>Přidat do košíku</button>
+                <button class="add-to-cart" data-name="Farmářské brambory" data-price="25">Přidat do košíku</button>
             </div>
         </div>
+    
+        <!-- kosik -->
+        <h2>🛍️ Váš košík</h2>
+        <div id="cart">
+            <ul id="cart-items"></ul>
+            <p><strong>Celková cena: <span id="total-price">0</span> Kč</strong></p>
+            <button id="clear-cart">Vyprázdnit košík</button>
+        </div>
     </main>
+    
 
    
     <footer>
