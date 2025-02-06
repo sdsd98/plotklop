@@ -1,4 +1,4 @@
-/* Global Styles */
+
 body {
     display: flex;
     flex-direction: column; 
@@ -10,11 +10,11 @@ body {
 }
 
 main {
-    margin-top: 100px; /* obsah dolu */
+    margin-top: 150px; /* obsah dolu */
     text-align: center;
 }
 
-/* Navigation */
+/* Navigace */
 .navbar {
     width: 100%;
     background-color: crimson; 
