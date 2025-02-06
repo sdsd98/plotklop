@@ -13,7 +13,7 @@ body {
     padding-right: 15px;
 }
 .navdiv{
-    display: flexbox;
+    display: flex;
     align-items: center;
     justify-content: space-between;
 }
