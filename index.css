@@ -308,3 +308,16 @@ footer {
 .nav_button:hover {
     background-color: darkgreen;
 }
+@media (max-width: 768px) {
+    .nav_buttons {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+
+    .nav_button {
+        width: 80%; 
+        text-align: center;
+        padding: 12px;
+    }
+}
