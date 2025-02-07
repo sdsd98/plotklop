@@ -286,21 +286,23 @@ footer {
 }
 .nav_buttons {
     display: flex;
-    gap: 15px; /* Increase spacing between buttons */
+    gap: 15px; /* Space between buttons */
+    justify-content: center; /* Center buttons */
     align-items: center;
-    margin-left: auto; /* Push buttons to the right */
-    padding-right: 20px; /* Add some space from the right edge */
+    width: 100%; /* Ensures full width usage */
+    margin: 10px 0; /* Add some vertical spacing */
+    padding: 10px 0; /* Padding for better spacing */
 }
 
 .nav_button {
     background-color: #028A0F; /* Softer green */
     border: none;
-    border-radius: 8px; /* Rounder corners */
-    padding: 8px 15px; /* Adjust padding for better proportion */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Adjusted for better look */
     cursor: pointer;
     color: white;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     transition: all 0.3s ease-in-out;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
@@ -310,19 +312,17 @@ footer {
     transform: scale(1.05); /* Slight scaling effect */
 }
 
-/* Responsive Design: Adjust on smaller screens */
+/* Mobile-friendly adjustments */
 @media (max-width: 768px) {
     .nav_buttons {
-        flex-direction: row; /* Keep them in one row */
-        justify-content: center;
-        width: 100%;
-        padding-right: 0;
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: center; /* Center alignment */
     }
 
     .nav_button {
-        font-size: 16px; /* Slightly bigger for touch-friendly UI */
-        width: auto;
+        width: 80%; /* Make buttons wider */
         text-align: center;
+        padding: 12px;
     }
 }
 
