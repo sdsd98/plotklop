@@ -269,10 +269,12 @@ ul li::before {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    width: 500px; /* Increases image size */
+    width: 40vw; 
+    max-width: 200px;
     height: auto;
     animation: slide 5s infinite alternate ease-in-out;
 }
+
 
 /* Position left image */
 .left-icon {
