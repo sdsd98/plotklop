@@ -288,7 +288,8 @@ footer {
     display: flex;
     gap: 10px; 
     align-items: center; 
-    margin-left: auto; 
+    margin-left: auto; /* Pushes the buttons to the right */
+    margin-right: 20px; /* Add margin to control distance from the right edge */
 }
 
 .nav_button {
@@ -308,16 +309,20 @@ footer {
 .nav_button:hover {
     background-color: darkgreen;
 }
+
+/* Ensure they are aligned properly on smaller screens */
 @media (max-width: 768px) {
     .nav_buttons {
         flex-direction: column;
-        width: 100%;
-        align-items: center;
+        width: auto; /* Adjust width to prevent excessive stretching */
+        align-items: flex-end; /* Align buttons to the right */
+        margin-right: 20px;
     }
 
     .nav_button {
-        width: 80%; 
+        width: auto;
         text-align: center;
         padding: 12px;
     }
 }
+
