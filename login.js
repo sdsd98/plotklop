@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("loggedInUser", JSON.stringify(validUser));
 
             console.log("➡ Redirecting to index.html...");
-            window.location.href = "index.html"; // Ensure this file exists
+            window.location.href = "index.html"; 
         } else {
             console.log("❌ Password mismatch!");
             showError("❌ Špatné uživatelské jméno nebo heslo!", errorMessage);
