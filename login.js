@@ -1,11 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("🔐 Secure Login Script Loaded");
 
-    // Ensure default admin user exists (hashed password)
-    if (!localStorage.getItem("users")) {
-        createDefaultUser();
-    }
-
     const loginForm = document.getElementById("login-form");
 
     if (!loginForm) {
@@ -21,16 +16,24 @@ document.addEventListener("DOMContentLoaded", function () {
         const password = document.getElementById("password").value.trim();
         const errorMessage = document.getElementById("errorMessage");
 
+        console.log("🔍 Entered Username:", username);
+        console.log("🔍 Entered Password:", password);
+
         let users = JSON.parse(localStorage.getItem("users")) || [];
+        console.log("🗂️ Stored Users:", users);
+
         let validUser = users.find(user => user.username === username);
 
         if (!validUser) {
+            console.log("❌ User not found!");
             showError("Špatné uživatelské jméno nebo heslo!", errorMessage);
             return;
         }
 
-        // Hash the password
+        // Hash the entered password
         const hashedPassword = await hashPassword(password);
+        console.log("🔑 Hashed Entered Password:", hashedPassword);
+        console.log("🔑 Stored Hashed Password:", validUser.password);
 
         if (hashedPassword === validUser.password) {
             alert("✅ Přihlášení úspěšné!");
@@ -39,42 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("➡ Redirecting to index.html...");
             window.location.href = "index.html"; // Ensure this file exists
         } else {
+            console.log("❌ Password mismatch!");
             showError("❌ Špatné uživatelské jméno nebo heslo!", errorMessage);
         }
     });
 });
-
-// 🛡️ Function to hash password (SHA-256)
-async function hashPassword(password) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-    return Array.from(new Uint8Array(hashBuffer))
-        .map(b => b.toString(16).padStart(2, "0"))
-        .join("");
-}
-
-// 🔍 Function to sanitize user input (prevents code injection)
-function sanitizeInput(input) {
-    const temp = document.createElement("div");
-    temp.textContent = input;
-    return temp.innerHTML;
-}
-
-// 🚨 Function to show error messages
-function showError(message, element) {
-    element.textContent = message;
-    element.style.color = "red";
-}
-
-// 🔑 Function to create a default secure admin user
-async function createDefaultUser() {
-    const defaultUsers = [
-        {
-            username: "admin",
-            email: "admin@example.com",
-            password: await hashPassword("1234"), // Hash the default password
-        }
-    ];
-    localStorage.setItem("users", JSON.stringify(defaultUsers));
-}
