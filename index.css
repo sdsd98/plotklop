@@ -8,6 +8,7 @@ body {
     padding: 0;
     background: linear-gradient(to bottom right, rgb(124, 229, 124), #055809);
     font-family: "Poppins", sans-serif;
+    text-align: center; /* Centers text horizontally */
 }
 
 .content {
@@ -94,11 +95,15 @@ body {
 
 /* Main content */
 main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content horizontally */
+    justify-content: flex-start; /* Aligns content at the top */
     margin-top: 120px; /* Adjust for navbar */
-    text-align: center;
     padding: 20px;
     max-width: 900px;
-    flex: 1;
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -239,16 +244,14 @@ button:hover {
     margin: auto;
     text-align: center;
 }
-/*footer*/
 footer {
     background-color: crimson;
     color: white;
-    text-align: center;
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
+    margin-top: auto;
 }
-
 
 /* Navbar  */
 .navbar {
