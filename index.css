@@ -393,10 +393,14 @@ button {
     box-sizing: border-box;
 }
 
+
 .product p {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 10px 0;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #333;
+    width: 100%;
 }
