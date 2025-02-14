@@ -23,7 +23,7 @@ body {
     transform: translateY(-50%);
     width: clamp(60px, 15vw, 150px);
     height: auto;
-    animation: slide-vertical 5s infinite alternate ease-in-out;
+    animation: slide-vertical 2.5s infinite alternate ease-in-out; /* Faster animation */
 }
 
 .left-icon {
@@ -40,7 +40,7 @@ body {
         transform: translateY(-50%);
     }
     100% {
-        transform: translateY(-40%); /* Adjust as needed for more/less movement */
+        transform: translateY(-30%); /* Increased movement */
     }
 }
 

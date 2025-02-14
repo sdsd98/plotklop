@@ -1,34 +1,56 @@
 <!DOCTYPE html>
 <html lang="cs">
-    <!-- username admin heslo 1234 
-        ale funguje registrace!!!!!-->
+    <!-- 
+    Přihlašovací údaje: 
+    Uživatelské jméno: admin 
+    Heslo: 1234 
+    Registrace je funkční.
+    -->
 <head>
+    <!-- Nastavení znakové sady a responzivního zobrazení -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Odkaz na externí CSS soubor -->
     <link rel="stylesheet" href="index.css">
+
+    <!-- Název stránky a favicon -->
     <title>Zelený ráj</title>
     <link rel="shortcut icon" href="https://sazenicka.cz/wp-content/uploads/2018/07/zelenina.jpg" type="image/x-icon"> 
 </head>
+
 <body>
+
+    <!-- Navigační lišta -->
     <nav class="navbar">
         <div class="navdiv">
+
+            <!-- Logo s odkazem -->
             <div class="logo"><a href="#">Zelený Ráj</a></div>
+
+            <!-- Navigační menu -->
             <ul class="list_nav">
-                <li id="Home"><a href="#">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="contact.html" id="Contact">Contact</a></li>
+                <li id="Home"><a href="#">Domů</a></li>
+                <li><a href="shop.html">Obchod</a></li>
+                <li><a href="contact.html" id="Contact">Kontakt</a></li>
             </ul>
+
+            <!-- Tlačítka pro přihlášení a registraci -->
             <div class="nav_buttons">
                 <button class="nav_button" onclick="window.open('login.html', '_blank')">Přihlásit</button>
                 <button class="nav_button" onclick="window.location.href='register.html'">Registrovat</button>
-
             </div>
+
         </div>
     </nav>
-    <img src="img/carrot_transparent.png" alt="Carrot" class="border-icons left-icon">
-    <img src="img/lettuce_transparent.png" alt="lettuce" class="border-icons right-icon">
 
+    <!-- Plovoucí ikony na stranách -->
+    <img src="img/carrot_transparent.png" alt="Mrkev" class="border-icons left-icon">
+    <img src="img/lettuce_transparent.png" alt="Salát" class="border-icons right-icon">
+
+    <!-- Hlavní obsah stránky -->
     <main>
+        <!-- Nadpis a úvodní text -->
         <h1>Zelený ráj</h1>
         <h3>Co vlastně děláme?</h3>
         
@@ -55,6 +77,7 @@
             Připojte se k nám a podpořte udržitelné zemědělství, zdravé stravování a odpovědný přístup k životnímu prostředí.
         </p>
     
+        <!-- Seznam výhod -->
         <h3>Proč nakupovat u nás?</h3>
         
         <ul>
@@ -66,11 +89,10 @@
         </ul>
     
         <p>
-            Navštivte nás a objevte kouzlo čerstvé zeleniny! 🌱🥕🥦  
+            Navštivte nás a objevte kouzlo čerstvé zeleniny!
         </p>
-    </main>
     
-        
+        <!-- Sekce s výhodami -->
         <h3>Proč nakupovat u nás?</h3>
         <p>
             ✅ Podporujeme lokální farmáře a jejich ekologické pěstování.<br>
@@ -78,6 +100,7 @@
             ✅ Žádné pesticidy ani chemická hnojiva – jen příroda!<br>
         </p>
     
+        <!-- Nabídka produktů -->
         <h3>Naše nabídka</h3>
         <ul id="list_idk">
             <li>🍅 Čerstvá rajčata a papriky</li>
@@ -85,15 +108,18 @@
             <li>🥬 Bio saláty a listová zelenina</li>
             <li>🍏 Sezónní ovoce od místních pěstitelů</li>
         </ul>
+
+        <!-- Obrazek obchodu -->
         <section>
             <h3>Naše prodejna</h3>
             <img src="https://dollhousemania.cz/wp-content/gallery/zeleninovy-stanek/st%C3%A1nek-zleva.jpg" alt="Obchod Zelený ráj" width="500">
         </section>
     </main>
     
-
+    <!-- Zápatí stránky -->
     <footer>
         <p>&copy; 2025 Zelený ráj | Tento projekt je vytvořen pro studijní účely</p>
     </footer>
+
 </body>
 </html>
