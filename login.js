@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
     console.log("🔐 Secure Login Script Loaded");
 
     const loginForm = document.getElementById("login-form");
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    loginForm.addEventListener("submit", async function (event) {
+    loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         console.log("📩 Login form submitted!");
 
@@ -16,34 +16,57 @@ document.addEventListener("DOMContentLoaded", function () {
         const password = document.getElementById("password").value.trim();
         const errorMessage = document.getElementById("errorMessage");
 
-        console.log("🔍 Entered Username:", username);
-        console.log("🔍 Entered Password:", password);
+        if (!username || !password) {
+            showError("⚠️ Uživatelské jméno a heslo jsou povinné!", errorMessage);
+            return;
+        }
 
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-        console.log("🗂️ Stored Users:", users);
-
-        let validUser = users.find(user => user.username === username);
+        // Retrieve users from localStorage
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const validUser = users.find(user => user.username.toLowerCase() === username.toLowerCase());
 
         if (!validUser) {
-            console.log("❌ User not found!");
-            showError("Špatné uživatelské jméno nebo heslo!", errorMessage);
+            showError("❌ Špatné uživatelské jméno nebo heslo!", errorMessage);
             return;
         }
 
         // Hash the entered password
         const hashedPassword = await hashPassword(password);
-        console.log("🔑 Hashed Entered Password:", hashedPassword);
-        console.log("🔑 Stored Hashed Password:", validUser.password);
 
         if (hashedPassword === validUser.password) {
-            alert("✅ Přihlášení úspěšné!");
+            // Store login session
             localStorage.setItem("loggedInUser", JSON.stringify(validUser));
 
-            console.log("➡ Redirecting to index.html...");
+            // Redirect after successful login
             window.location.href = "index.html"; 
         } else {
-            console.log("❌ Password mismatch!");
             showError("❌ Špatné uživatelské jméno nebo heslo!", errorMessage);
         }
     });
 });
+
+// Hash the password with SHA-256
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(hashBuffer))
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
+}
+
+// Sanitize user input to prevent injection
+function sanitizeInput(input) {
+    const temp = document.createElement("div");
+    temp.textContent = input;
+    return temp.innerHTML;
+}
+
+// Show error messages with dynamic styling
+function showError(message, element) {
+    if (element) {
+        element.textContent = message;
+        element.style.color = "red";
+        element.style.fontWeight = "bold";
+    }
+}
