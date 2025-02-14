@@ -9,6 +9,7 @@ body {
     padding: 0;
     background: linear-gradient(to bottom right, rgb(124, 229, 124), #055809);
     font-family: "Poppins", sans-serif;
+    padding-bottom: 60px;
 }
 
 
@@ -235,8 +236,11 @@ footer {
     text-align: center;
     padding: 10px;
     width: 100%;
-    margin-top: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
+
 
 /* Navbar  */
 .navbar {
