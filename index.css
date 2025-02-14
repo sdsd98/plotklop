@@ -409,3 +409,38 @@ button {
     margin: 0 auto;
     border-radius: 10px;
 }
+/* Adjust the product grid layout */
+.shop-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Ensure product cards look good within the grid */
+.product {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+}
+
+
+
+/* Center price and text */
+.product h3,
+.product p {
+    margin: 10px 0;
+    color: #fff;
+}
