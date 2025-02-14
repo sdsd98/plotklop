@@ -12,70 +12,9 @@ body {
 }
 
 /* Navbar */
-.navbar {
-    width: 100%;
-    background-color: crimson;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    height: 70px;
-}
 
-/*  Mobile Navbar Toggle  */
-.menu-toggle {
-    display: none;
-    font-size: 2rem;
-    color: white;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
 
-.list_nav {
-    display: flex;
-    list-style: none;
-    gap: 30px;
-}
 
-.list_nav a {
-    text-decoration: none;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: white;
-}
-
-/*  Menu on Small Screens */
-@media (max-width: 768px) {
-    .list_nav {
-        display: none;
-        flex-direction: column;
-        background: crimson;
-        width: 100%;
-        text-align: center;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        padding: 20px 0;
-        z-index: 1000;
-    }
-
-    .list_nav li {
-        margin: 10px 0;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    .list_nav.show {
-        display: flex;
-    }
-}
 
 /*  Floating Icons */
 .border-icons {
@@ -249,80 +188,5 @@ footer {
     padding: 10px;
     width: 100%;
     margin-top: 20px;
-}
-
-/*  Make Everything Fit on Small Screens */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    h3 {
-        font-size: 1.3rem;
-    }
-
-    p {
-        font-size: 1rem;
-    }
-
-    .list_nav {
-        flex-direction: column;
-        text-align: center;
-        padding: 10px 0;
-    }
-
-    .nav_buttons {
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .nav_button {
-        width: 100%;
-    }
-
-    .border-icons {
-        width: 60px;
-    }
-}
-.nav_buttons {
-    display: flex;
-    gap: 15px; /* Space between buttons */
-    justify-content: center; /* Center buttons */
-    align-items: center;
-    width: 100%; /* Ensures full width usage */
-    margin: 10px 0; /* Add some vertical spacing */
-    padding: 10px 0; /* Padding for better spacing */
-}
-
-.nav_button {
-    background-color: #028A0F; /* Softer green */
-    border: none;
-    border-radius: 8px; /* Rounded corners */
-    padding: 10px 20px; /* Adjusted for better look */
-    cursor: pointer;
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-}
-
-.nav_button:hover {
-    background-color: #026B0A; /* Darker green on hover */
-    transform: scale(1.05); /* Slight scaling effect */
-}
-
-/* Mobile-friendly adjustments */
-@media (max-width: 768px) {
-    .nav_buttons {
-        flex-direction: column; /* Stack buttons vertically */
-        align-items: center; /* Center alignment */
-    }
-
-    .nav_button {
-        width: 80%; /* Make buttons wider */
-        text-align: center;
-        padding: 12px;
-    }
 }
 
