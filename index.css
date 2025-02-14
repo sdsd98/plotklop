@@ -327,3 +327,68 @@ input:focus, textarea:focus {
     text-align: center;
     font-size: large;
 }
+/* 🌿 Button Styles (excluding navbar) */
+button:not(.nav_button) {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #00b894, #00cec9);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.4s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin: 5px 0;
+}
+
+/* Hover effect */
+button:not(.nav_button):hover {
+    background: linear-gradient(135deg, #0984e3, #6c5ce7);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Specific styling for remove item buttons */
+button.remove-item {
+    background: linear-gradient(135deg, #e17055, #d63031);
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+    margin-left: 10px;
+}
+
+button.remove-item:hover {
+    background: linear-gradient(135deg, #ff7675, #e17055);
+    transform: scale(1.2);
+}
+
+/* Cart buttons */
+#clear-cart,
+#checkout-button {
+    width: 100%;
+    margin: 5px 0;
+    background: linear-gradient(135deg, #fd79a8, #e84393);
+    color: #fff;
+}
+
+#clear-cart:hover,
+#checkout-button:hover {
+    background: linear-gradient(135deg, #e84393, #fd79a8);
+}
+
+/* Add to cart buttons */
+.add-to-cart {
+    background: linear-gradient(135deg, #00b894, #00cec9);
+}
+
+.add-to-cart:hover {
+    background: linear-gradient(135deg, #00cec9, #00b894);
+}
+
+/* Ensure button width consistency */
+button {
+    box-sizing: border-box;
+}
