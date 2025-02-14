@@ -479,3 +479,146 @@ footer {
         font-size: 1rem;
     }
 }
+/* 🌿 Register Page Styles */
+.register-page {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #6FCF97, #56CCF2);
+    animation: bgShift 10s ease infinite;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Background animation */
+@keyframes bgShift {
+    0% {
+        background: linear-gradient(135deg, #6FCF97, #56CCF2);
+    }
+    50% {
+        background: linear-gradient(135deg, #11998e, #38ef7d);
+    }
+    100% {
+        background: linear-gradient(135deg, #6FCF97, #56CCF2);
+    }
+}
+
+/* 🌸 Register Container */
+.register-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(6px);
+    border-radius: 20px;
+    padding: 30px 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 400px;
+    text-align: left;
+    animation: fadeIn 2s ease;
+    position: relative;
+}
+
+/* 🌟 Form Fields */
+.register-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 5px #333;
+}
+
+.register-container label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.register-container input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    margin-top: 5px;
+    background-color: rgba(255, 255, 255, 0.6);
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.register-container input:focus {
+    outline: none;
+    background-color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 150, 0, 0.5);
+}
+
+/* ✅ Submit Button */
+.submit-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #27ae60, #2196F3);
+    cursor: pointer;
+    transition: background 0.4s, transform 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #27ae60, #6C5CE7);
+    transform: translateY(-5px);
+}
+
+/* 🚨 Message Feedback */
+.message {
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 🎯 Footer Styling */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #264653;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    font-size: 0.9rem;
+}
+
+/* 🪄 Animation for fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 📱 Responsive Adjustments */
+@media (max-width: 500px) {
+    .register-container {
+        padding: 20px;
+    }
+
+    .submit-btn {
+        font-size: 1rem;
+        padding: 12px;
+    }
+}
