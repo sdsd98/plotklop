@@ -11,7 +11,7 @@ body {
     font-family: "Poppins", sans-serif;
 }
 
-/* Navbar */
+
 
 
 
@@ -190,3 +190,96 @@ footer {
     margin-top: 20px;
 }
 
+/* Navbar  */
+.navbar {
+    width: 100%;
+    background: rgba(0, 100, 0, 0.8);
+    padding: 20px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.navdiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo a {
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+}
+
+.logo a:hover {
+    color: #ffeb3b;
+}
+
+.list_nav {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: 30px;
+}
+
+.list_nav li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.list_nav li a:hover {
+    color: #ffeb3b;
+    border-bottom: 2px solid #ffeb3b;
+    padding-bottom: 5px;
+}
+
+.nav_buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.nav_button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: green;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.nav_button:hover {
+    background-color: #d4edda;
+    color: darkgreen;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navdiv {
+        flex-direction: column;
+    }
+
+    .list_nav {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .nav_buttons {
+        margin-top: 10px;
+    }
+}
