@@ -344,3 +344,138 @@ button:hover {
 }
 
 
+/* ✨ Enhanced Contact Page Styles */
+
+/* Subtitle Styling */
+.subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    color: #fff;
+    text-shadow: 1px 1px 2px #333;
+    animation: fadeIn 2s ease;
+}
+
+/* Contact Container */
+.contact-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(6px);
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    padding: 30px 40px;
+    max-width: 600px;
+    margin: 40px auto;
+    color: #fff;
+    transition: transform 0.5s ease;
+}
+
+.contact-container:hover {
+    transform: translateY(-10px);
+}
+
+/* Contact Info */
+.contact-info {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.contact-info p {
+    margin: 15px 0;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Fancy Form */
+.fancy-form {
+    text-align: left;
+}
+
+.fancy-form label {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.fancy-form input,
+.fancy-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    margin-top: 5px;
+    background-color: rgba(255, 255, 255, 0.6);
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.fancy-form input:focus,
+.fancy-form textarea:focus {
+    outline: none;
+    background-color: #fff;
+    transform: scale(1.05);
+}
+
+.fancy-form button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #00b894, #00cec9);
+    cursor: pointer;
+    transition: background 0.4s, transform 0.2s;
+}
+
+.fancy-form button:hover {
+    background: linear-gradient(135deg, #0984e3, #6c5ce7);
+    transform: translateY(-5px);
+}
+
+/* Footer */
+footer {
+    background-color: #2d3436;
+    color: #fff;
+    padding: 15px;
+    width: 100%;
+    margin-top: auto;
+    text-align: center;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* Link Hover Effect */
+.list_nav a:hover {
+    color: #f39c12;
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .contact-container {
+        padding: 20px;
+    }
+
+    .contact-info p {
+        font-size: 1rem;
+    }
+
+    .fancy-form button {
+        font-size: 1rem;
+    }
+}
