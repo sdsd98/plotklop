@@ -16,7 +16,7 @@ body {
 
 
 
-/*  Floating Icons */
+/* Floating Icons */
 .border-icons {
     position: fixed;
     top: 50%;
@@ -33,6 +33,17 @@ body {
 .right-icon {
     right: 10px;
 }
+
+/* Keyframes for the sliding animation */
+@keyframes slide {
+    0% {
+        transform: translateY(-50%) translateX(0);
+    }
+    100% {
+        transform: translateY(-50%) translateX(50px);
+    }
+}
+
 
 /* Centered Main Content */
 main {
