@@ -23,9 +23,18 @@ body {
     transform: translateY(-50%);
     width: clamp(60px, 15vw, 150px);
     height: auto;
-    animation: slide-vertical 2.5s infinite alternate ease-in-out; /* Faster animation */
+    animation: slide-vertical 3s infinite ease-in-out, rotate 4s infinite linear, color-shift 5s infinite ease-in-out;
+    transition: box-shadow 0.5s ease;
+    cursor: pointer;
 }
 
+/* Hover effect */
+.border-icons:hover {
+    box-shadow: 0 0 20px 10px rgba(255, 105, 180, 0.6);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Distinguish sides */
 .left-icon {
     left: 5px;
 }
@@ -34,15 +43,42 @@ body {
     right: 5px;
 }
 
-/* Keyframes for vertical sliding animation */
+/* Vertical sliding */
 @keyframes slide-vertical {
     0% {
         transform: translateY(-50%);
     }
+    50% {
+        transform: translateY(-45%);
+    }
     100% {
-        transform: translateY(-30%); /* Increased movement */
+        transform: translateY(-50%);
     }
 }
+
+/* Rotation */
+@keyframes rotate {
+    0% {
+        transform: translateY(-50%) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+/* Color shift */
+@keyframes color-shift {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    50% {
+        filter: hue-rotate(180deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
 
 
 
