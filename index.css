@@ -402,3 +402,10 @@ button {
     color: #333;
     width: 100%;
 }
+.shop-container .product img {
+    width: 30%; /*velikost*/
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+}
