@@ -23,24 +23,24 @@ body {
     transform: translateY(-50%);
     width: clamp(60px, 15vw, 150px);
     height: auto;
-    animation: slide 5s infinite alternate ease-in-out;
+    animation: slide-vertical 5s infinite alternate ease-in-out;
 }
 
 .left-icon {
-    left: 10px;
+    left: 5px;
 }
 
 .right-icon {
-    right: 10px;
+    right: 5px;
 }
 
-/* Keyframes for the sliding animation */
-@keyframes slide {
+/* Keyframes for vertical sliding animation */
+@keyframes slide-vertical {
     0% {
-        transform: translateY(-50%) translateX(0);
+        transform: translateY(-50%);
     }
     100% {
-        transform: translateY(-50%) translateX(50px);
+        transform: translateY(-40%); /* Adjust as needed for more/less movement */
     }
 }
 
@@ -223,7 +223,7 @@ footer {
 }
 
 .logo a {
-    color: #fff;
+    color: #085d00;
     font-size: 1.8rem;
     font-weight: bold;
     text-decoration: none;
