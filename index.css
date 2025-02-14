@@ -321,3 +321,8 @@ input:focus, textarea:focus {
         padding: 12px;
     }
 }
+/*contact li*/
+#checkout {
+    text-align: center;
+    font-size: large;
+}
