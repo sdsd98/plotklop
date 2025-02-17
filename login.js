@@ -1,9 +1,10 @@
-// login.js - Node.js version with popup and redirect simulation
+// login.js - Node.js script to log in by reading user_data.txt
 
 const fs = require('fs');
 const readline = require('readline');
+const crypto = require('crypto');
 
-// Create interface for terminal input
+// Set up readline for user input
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -39,12 +40,10 @@ rl.question("Username: ", (username) => {
                 return;
             }
 
-            const hashedPassword = await hashPassword(password);
+            const hashedPassword = hashPassword(password);
 
             if (hashedPassword === validUser.password) {
                 console.log("✅ Login successful!");
-                console.log("🔔 POPUP: Login successful!");
-                console.log("🔄 Redirecting to index.html...");
             } else {
                 console.log("❌ Invalid username or password!");
             }
@@ -53,8 +52,7 @@ rl.question("Username: ", (username) => {
     });
 });
 
-// Hash the password using Node.js crypto
-async function hashPassword(password) {
-    const crypto = require('crypto');
+// Hash password for comparison
+function hashPassword(password) {
     return crypto.createHash('sha256').update(password).digest('hex');
 }
