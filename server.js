@@ -1,3 +1,5 @@
+// server.js - Express server with MongoDB Atlas connection
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -11,18 +13,19 @@ mongoose.connect('mongodb+srv://Admin:popelnice@userdata.djtsf.mongodb.net/UserA
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
+    .then(() => console.log('✅ MongoDB connected successfully'))
+    .catch(err => console.error('❌ MongoDB connection error:', err));
 
-// User Schema
+// Define User Schema and Model
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true }
 });
-
 const User = mongoose.model('User', userSchema);
 
 app.use(bodyParser.json());
-app.use(express.static(__dirname));
+app.use(express.static(__dirname)); // Serve static files like HTML, CSS, JS
 
 // Registration Endpoint
 app.post('/register', async (req, res) => {
@@ -39,6 +42,7 @@ app.post('/register', async (req, res) => {
         await newUser.save();
         res.status(201).json({ message: "User registered successfully!" });
     } catch (err) {
+        console.error('Error saving user data:', err);  // Log detailed error
         res.status(500).json({ error: "Failed to save user data." });
     }
 });
@@ -56,10 +60,11 @@ app.post('/login', async (req, res) => {
             res.status(401).json({ error: "Invalid username or password!" });
         }
     } catch (err) {
+        console.error('Error during login:', err);  // Log detailed error
         res.status(500).json({ error: "Failed to load user data." });
     }
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`🚀 Server running on port ${PORT}`);
 });
