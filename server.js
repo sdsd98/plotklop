@@ -1,9 +1,5 @@
 const express = require('express');
-
-
 process.on('uncaughtException', console.error);
-
-
 
 const fs = require('fs');
 const path = require('path');
@@ -11,7 +7,7 @@ const bodyParser = require('body-parser');
 const crypto = require('crypto');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname))); // Serve static files (HTML, CSS, JS)
@@ -63,6 +59,10 @@ app.post('/login', (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+// Increase timeout values for Render
+server.keepAliveTimeout = 120000; // 2 minutes
+server.headersTimeout = 120000;   // 2 minutes
