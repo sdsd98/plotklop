@@ -1,8 +1,9 @@
-// login.js - Node.js version
+// login.js - Node.js version with popup and redirect simulation
 
 const fs = require('fs');
 const readline = require('readline');
 
+// Create interface for terminal input
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -42,6 +43,8 @@ rl.question("Username: ", (username) => {
 
             if (hashedPassword === validUser.password) {
                 console.log("✅ Login successful!");
+                console.log("🔔 POPUP: Login successful!");
+                console.log("🔄 Redirecting to index.html...");
             } else {
                 console.log("❌ Invalid username or password!");
             }
@@ -50,6 +53,7 @@ rl.question("Username: ", (username) => {
     });
 });
 
+// Hash the password using Node.js crypto
 async function hashPassword(password) {
     const crypto = require('crypto');
     return crypto.createHash('sha256').update(password).digest('hex');
