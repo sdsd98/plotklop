@@ -1,3 +1,7 @@
+// register.js
+
+const fs = require('fs');
+
 document.getElementById("registerForm").addEventListener("submit", async function(event) {
     event.preventDefault();
 
@@ -6,50 +10,34 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     const password = document.getElementById("password").value.trim();
     const registerMessage = document.getElementById("registerMessage");
 
-    // Reset message
     registerMessage.textContent = "";
-    registerMessage.style.color = "black";
 
-    // Validate inputs
     if (!username || !email || !password) {
-        registerMessage.textContent = "Všechna pole jsou povinná!";
+        registerMessage.textContent = "All fields are required!";
         registerMessage.style.color = "red";
         return;
     }
 
-    // Validate email format
     if (!validateEmail(email)) {
-        registerMessage.textContent = "Neplatný formát e-mailu!";
+        registerMessage.textContent = "Invalid email format!";
         registerMessage.style.color = "red";
         return;
     }
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-
-    // Check if the username or email already exists
-    if (users.some(user => user.username === username || user.email === email)) {
-        registerMessage.textContent = "Uživatelské jméno nebo e-mail už existuje!";
-        registerMessage.style.color = "red";
-        return;
-    }
-
-    // Hash the password
     const hashedPassword = await hashPassword(password);
+    const userData = `${username}, ${email}, ${hashedPassword}\n`;
 
-    // Store user securely
-    users.push({ username, email, password: hashedPassword });
-    localStorage.setItem("users", JSON.stringify(users));
-
-    registerMessage.textContent = "Registrace úspěšná! Přesměrování na přihlášení...";
-    registerMessage.style.color = "green";
-
-    // Redirect to login page after 2 seconds
-    setTimeout(() => {
-        window.location.href = "login.html";
-    }, 2000);
+    fs.appendFile('user_data.txt', userData, (err) => {
+        if (err) {
+            registerMessage.textContent = "Error saving data!";
+            registerMessage.style.color = "red";
+        } else {
+            registerMessage.textContent = "Registration successful! Data saved.";
+            registerMessage.style.color = "green";
+        }
+    });
 });
 
-// Function to hash password (SHA-256)
 async function hashPassword(password) {
     const encoder = new TextEncoder();
     const data = encoder.encode(password);
@@ -59,14 +47,12 @@ async function hashPassword(password) {
         .join("");
 }
 
-// Function to sanitize user input
 function sanitizeInput(input) {
     const temp = document.createElement("div");
     temp.textContent = input;
     return temp.innerHTML;
 }
 
-// Function to validate email format
 function validateEmail(email) {
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return pattern.test(email);

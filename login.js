@@ -1,3 +1,7 @@
+// login.js
+
+const fs = require('fs');
+
 document.addEventListener("DOMContentLoaded", () => {
     console.log("🔐 Secure Login Script Loaded");
 
@@ -21,27 +25,41 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Retrieve users from localStorage
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-        const validUser = users.find(user => user.username.toLowerCase() === username.toLowerCase());
+        // Read user data from file
+        fs.readFile('user_data.txt', 'utf8', async (err, data) => {
+            if (err) {
+                showError("❌ Chyba při načítání uživatelských dat!", errorMessage);
+                return;
+            }
 
-        if (!validUser) {
-            showError("❌ Špatné uživatelské jméno nebo heslo!", errorMessage);
-            return;
-        }
+            const users = data.split('\n').filter(line => line).map(line => {
+                const [storedUsername, storedEmail, storedPassword] = line.split(', ');
+                return { username: storedUsername, email: storedEmail, password: storedPassword };
+            });
 
-        // Hash the entered password
-        const hashedPassword = await hashPassword(password);
+            // Check if username exists
+            const validUser = users.find(user => user.username.toLowerCase() === username.toLowerCase());
 
-        if (hashedPassword === validUser.password) {
-            // Store login session
-            localStorage.setItem("loggedInUser", JSON.stringify(validUser));
+            if (!validUser) {
+                showError("❌ Špatné uživatelské jméno nebo heslo!", errorMessage);
+                return;
+            }
 
-            // Redirect after successful login
-            window.location.href = "index.html"; 
-        } else {
-            showError("❌ Špatné uživatelské jméno nebo heslo!", errorMessage);
-        }
+            // Hash the entered password and compare
+            const hashedPassword = await hashPassword(password);
+
+            if (hashedPassword === validUser.password) {
+                console.log("✅ Login successful!");
+
+                // Store login session (still using localStorage for session tracking)
+                localStorage.setItem("loggedInUser", JSON.stringify(validUser));
+
+                // Redirect after successful login
+                window.location.href = "index.html";
+            } else {
+                showError("❌ Špatné uživatelské jméno nebo heslo!", errorMessage);
+            }
+        });
     });
 });
 
