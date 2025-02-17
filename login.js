@@ -1,34 +1,27 @@
-// login.js
+// login.js - Node.js version
 
 const fs = require('fs');
+const readline = require('readline');
 
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("🔐 Secure Login Script Loaded");
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
-    const loginForm = document.getElementById("login-form");
+console.log("🔐 Welcome! Please log in.");
 
-    if (!loginForm) {
-        console.error("❌ Error: login-form element not found!");
-        return;
-    }
-
-    loginForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        console.log("📩 Login form submitted!");
-
-        const username = sanitizeInput(document.getElementById("username").value.trim());
-        const password = document.getElementById("password").value.trim();
-        const errorMessage = document.getElementById("errorMessage");
-
+rl.question("Username: ", (username) => {
+    rl.question("Password: ", async (password) => {
         if (!username || !password) {
-            showError("⚠️ Uživatelské jméno a heslo jsou povinné!", errorMessage);
+            console.log("⚠️ Username and password are required!");
+            rl.close();
             return;
         }
 
-        // Read user data from file
         fs.readFile('user_data.txt', 'utf8', async (err, data) => {
             if (err) {
-                showError("❌ Chyba při načítání uživatelských dat!", errorMessage);
+                console.log("❌ Error loading user data!");
+                rl.close();
                 return;
             }
 
@@ -37,55 +30,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 return { username: storedUsername, email: storedEmail, password: storedPassword };
             });
 
-            // Check if username exists
             const validUser = users.find(user => user.username.toLowerCase() === username.toLowerCase());
 
             if (!validUser) {
-                showError("❌ Špatné uživatelské jméno nebo heslo!", errorMessage);
+                console.log("❌ Invalid username or password!");
+                rl.close();
                 return;
             }
 
-            // Hash the entered password and compare
             const hashedPassword = await hashPassword(password);
 
             if (hashedPassword === validUser.password) {
                 console.log("✅ Login successful!");
-
-                // Store login session (still using localStorage for session tracking)
-                localStorage.setItem("loggedInUser", JSON.stringify(validUser));
-
-                // Redirect after successful login
-                window.location.href = "index.html";
-                alert("login succesesfull")
             } else {
-                showError("❌ Špatné uživatelské jméno nebo heslo!", errorMessage);
+                console.log("❌ Invalid username or password!");
             }
+            rl.close();
         });
     });
 });
 
-// Hash the password with SHA-256
 async function hashPassword(password) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-    return Array.from(new Uint8Array(hashBuffer))
-        .map(b => b.toString(16).padStart(2, "0"))
-        .join("");
-}
-
-// Sanitize user input to prevent injection
-function sanitizeInput(input) {
-    const temp = document.createElement("div");
-    temp.textContent = input;
-    return temp.innerHTML;
-}
-
-// Show error messages with dynamic styling
-function showError(message, element) {
-    if (element) {
-        element.textContent = message;
-        element.style.color = "red";
-        element.style.fontWeight = "bold";
-    }
+    const crypto = require('crypto');
+    return crypto.createHash('sha256').update(password).digest('hex');
 }
