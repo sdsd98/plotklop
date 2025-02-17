@@ -1,58 +1,38 @@
-// login.js - Node.js script to log in by reading user_data.txt
+document.getElementById("login-form").addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-const fs = require('fs');
-const readline = require('readline');
-const crypto = require('crypto');
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const errorMessage = document.getElementById("errorMessage");
 
-// Set up readline for user input
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+    errorMessage.textContent = "";
 
-console.log("🔐 Welcome! Please log in.");
+    if (!username || !password) {
+        errorMessage.textContent = "⚠️ Username and password are required!";
+        errorMessage.style.color = "red";
+        return;
+    }
 
-rl.question("Username: ", (username) => {
-    rl.question("Password: ", async (password) => {
-        if (!username || !password) {
-            console.log("⚠️ Username and password are required!");
-            rl.close();
-            return;
-        }
-
-        fs.readFile('user_data.txt', 'utf8', async (err, data) => {
-            if (err) {
-                console.log("❌ Error loading user data!");
-                rl.close();
-                return;
-            }
-
-            const users = data.split('\n').filter(line => line).map(line => {
-                const [storedUsername, storedEmail, storedPassword] = line.split(', ');
-                return { username: storedUsername, email: storedEmail, password: storedPassword };
-            });
-
-            const validUser = users.find(user => user.username.toLowerCase() === username.toLowerCase());
-
-            if (!validUser) {
-                console.log("❌ Invalid username or password!");
-                rl.close();
-                return;
-            }
-
-            const hashedPassword = hashPassword(password);
-
-            if (hashedPassword === validUser.password) {
-                console.log("✅ Login successful!");
-            } else {
-                console.log("❌ Invalid username or password!");
-            }
-            rl.close();
+    try {
+        const response = await fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, password })
         });
-    });
-});
 
-// Hash password for comparison
-function hashPassword(password) {
-    return crypto.createHash('sha256').update(password).digest('hex');
-}
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("✅ Login successful!");  // Popup on successful login
+            window.location.href = "index.html";  // Redirect to index.html
+        } else {
+            errorMessage.textContent = `❌ ${data.error}`;
+            errorMessage.style.color = "red";
+        }
+    } catch (error) {
+        errorMessage.textContent = "❌ An error occurred!";
+        errorMessage.style.color = "red";
+    }
+});

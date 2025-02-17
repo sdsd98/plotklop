@@ -19,6 +19,7 @@
   "homepage": "https://github.com/sdsd98/plotklop#readme",
   "dependencies": {
     "body-parser": "^1.20.3",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "mongoose": "^8.10.1"
   }
 }
