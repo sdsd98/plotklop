@@ -7,12 +7,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // MongoDB Atlas connection
-mongoose.connect('mongodb+srv://Admin:popelnice@userdata.djtsf.mongodb.net/?retryWrites=true&w=majority&appName=userData', {
+mongoose.connect('mongodb+srv://Admin:popelnice@userdata.djtsf.mongodb.net/UserAuthDB?retryWrites=true&w=majority&appName=userData', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-    .then(() => console.log('✅ MongoDB connected'))
-    .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // User Schema
 const userSchema = new mongoose.Schema({
