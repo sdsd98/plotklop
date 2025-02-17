@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // Redirect after successful login
                 window.location.href = "index.html";
+                alert("login succesesfull")
             } else {
                 showError("❌ Špatné uživatelské jméno nebo heslo!", errorMessage);
             }

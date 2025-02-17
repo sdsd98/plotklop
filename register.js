@@ -34,6 +34,11 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         } else {
             registerMessage.textContent = "Registration successful! Data saved.";
             registerMessage.style.color = "green";
+            
+            // Redirect to index.html after 2 seconds
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 2000);
         }
     });
 });
