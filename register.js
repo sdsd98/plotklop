@@ -1,64 +1,61 @@
-// register.js
+// login.js - Node.js version (reads from user_data.txt)
 
 const fs = require('fs');
+const readline = require('readline');
 
-document.getElementById("registerForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
+// Prompt user for login
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
-    const username = sanitizeInput(document.getElementById("username").value.trim());
-    const email = sanitizeInput(document.getElementById("email").value.trim());
-    const password = document.getElementById("password").value.trim();
-    const registerMessage = document.getElementById("registerMessage");
+console.log("🔐 Welcome! Please log in.");
 
-    registerMessage.textContent = "";
-
-    if (!username || !email || !password) {
-        registerMessage.textContent = "All fields are required!";
-        registerMessage.style.color = "red";
-        return;
-    }
-
-    if (!validateEmail(email)) {
-        registerMessage.textContent = "Invalid email format!";
-        registerMessage.style.color = "red";
-        return;
-    }
-
-    const hashedPassword = await hashPassword(password);
-    const userData = `${username}, ${email}, ${hashedPassword}\n`;
-
-    fs.appendFile('user_data.txt', userData, (err) => {
-        if (err) {
-            registerMessage.textContent = "Error saving data!";
-            registerMessage.style.color = "red";
-        } else {
-            registerMessage.textContent = "Registration successful! Data saved.";
-            registerMessage.style.color = "green";
-            
-            // Redirect to index.html after 2 seconds
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 2000);
+rl.question("Username: ", (username) => {
+    rl.question("Password: ", async (password) => {
+        if (!username || !password) {
+            console.log("⚠️ Username and password are required!");
+            rl.close();
+            return;
         }
+
+        // Read user data from file
+        fs.readFile('user_data.txt', 'utf8', async (err, data) => {
+            if (err) {
+                console.log("❌ Error loading user data!");
+                rl.close();
+                return;
+            }
+
+            const users = data.split('\n').filter(line => line).map(line => {
+                const [storedUsername, storedEmail, storedPassword] = line.split(', ');
+                return { username: storedUsername, email: storedEmail, password: storedPassword };
+            });
+
+            // Check if username exists
+            const validUser = users.find(user => user.username.toLowerCase() === username.toLowerCase());
+
+            if (!validUser) {
+                console.log("❌ Invalid username or password!");
+                rl.close();
+                return;
+            }
+
+            // Hash the entered password and compare
+            const hashedPassword = await hashPassword(password);
+
+            if (hashedPassword === validUser.password) {
+                console.log("✅ Login successful!");
+            } else {
+                console.log("❌ Invalid username or password!");
+            }
+            rl.close();
+        });
     });
 });
 
+// Hash the password with SHA-256 (Node.js built-in crypto)
 async function hashPassword(password) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-    return Array.from(new Uint8Array(hashBuffer))
-        .map(b => b.toString(16).padStart(2, "0"))
-        .join("");
-}
-
-function sanitizeInput(input) {
-    const temp = document.createElement("div");
-    temp.textContent = input;
-    return temp.innerHTML;
-}
-
-function validateEmail(email) {
-    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return pattern.test(email);
+    const crypto = require('crypto');
+    return crypto.createHash('sha256').update(password).digest('hex');
 }
