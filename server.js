@@ -1,14 +1,10 @@
 // server.js - Express server with MongoDB Atlas connection
-require('dotenv').config();
-
-
-
+require('dotenv').config(); // Load environment variables from a .env file
 
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
-require('dotenv').config(); // Load environment variables from a .env file
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +14,8 @@ mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
+    .then(() => console.log('✅ MongoDB connected successfully'))
+    .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // Define User Schema and Model
 const userSchema = new mongoose.Schema({
