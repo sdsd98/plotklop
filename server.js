@@ -1,20 +1,23 @@
 // server.js - Express server with MongoDB Atlas connection
+require('dotenv').config();
+
+
+
 
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
+require('dotenv').config(); // Load environment variables from a .env file
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // MongoDB Atlas connection
-mongoose.connect('mongodb+srv://Admin:popelnice@userdata.djtsf.mongodb.net/UserAuthDB?retryWrites=true&w=majority&appName=userData', {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-    .then(() => console.log('✅ MongoDB connected successfully'))
-    .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // Define User Schema and Model
 const userSchema = new mongoose.Schema({
@@ -42,7 +45,7 @@ app.post('/register', async (req, res) => {
         await newUser.save();
         res.status(201).json({ message: "User registered successfully!" });
     } catch (err) {
-        console.error('Error saving user data:', err);  // Log detailed error
+        console.error('❌ Error saving user data:', err);  // Log detailed error
         res.status(500).json({ error: "Failed to save user data." });
     }
 });
@@ -60,7 +63,7 @@ app.post('/login', async (req, res) => {
             res.status(401).json({ error: "Invalid username or password!" });
         }
     } catch (err) {
-        console.error('Error during login:', err);  // Log detailed error
+        console.error('❌ Error during login:', err);  // Log detailed error
         res.status(500).json({ error: "Failed to load user data." });
     }
 });
