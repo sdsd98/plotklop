@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt"); // Secure password hashing
+const crypto = require("crypto"); // ✅ Built-in module for SHA-256 hashing
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -47,14 +47,19 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Generate JWT Token
+// 🔒 Secure SHA-256 Hashing Function
+const hashPassword = (password) => {
+  return crypto.createHash("sha256").update(password).digest("hex");
+};
+
+// 🔑 Generate JWT Token
 const generateToken = (user) => {
   return jwt.sign({ username: user.username, email: user.email }, SECRET_KEY, {
     expiresIn: "1h", // Token expires in 1 hour
   });
 };
 
-// Registration Endpoint (With Secure Password Hashing)
+// 🔹 User Registration Endpoint
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
@@ -62,7 +67,7 @@ app.post("/register", async (req, res) => {
   }
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10); // Hash password
+    const hashedPassword = hashPassword(password); // 🔒 SHA-256 Hashing
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
     res.status(201).json({ message: "User registered successfully!" });
@@ -72,18 +77,19 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// Login Endpoint (Using Secure Password Hashing)
+// 🔹 User Login Endpoint
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
+  const hashedPassword = hashPassword(password); // 🔒 Hash before checking
 
   try {
-    const user = await User.findOne({ username });
-    if (user && (await bcrypt.compare(password, user.password))) {
+    const user = await User.findOne({ username, password: hashedPassword });
+    if (user) {
       const token = generateToken(user);
       res
         .cookie("token", token, {
-          httpOnly: true, // Prevents client-side access to the cookie
-          secure: process.env.NODE_ENV === "production", // Secure only in production
+          httpOnly: true, // Prevents client-side access
+          secure: process.env.NODE_ENV === "production", // Use HTTPS in production
           sameSite: "Strict",
           maxAge: 3600000, // 1 hour
         })
@@ -97,7 +103,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Middleware to check authentication
+// 🔹 Middleware to Check JWT Authentication
 const verifyToken = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
@@ -110,17 +116,17 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-// Check Login Status (Protected Route)
+// 🔹 Check Login Status (Protected Route)
 app.get("/isLoggedIn", verifyToken, (req, res) => {
   res.json({ loggedIn: true, user: req.user });
 });
 
-// Logout Endpoint (Clears Cookie)
+// 🔹 Logout Endpoint (Clears Cookie)
 app.post("/logout", (req, res) => {
   res.clearCookie("token").json({ success: true, message: "Logged out successfully!" });
 });
 
-// Start Server
+// 🚀 Start Server
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
