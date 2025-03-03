@@ -6,6 +6,16 @@ const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const path = require("path");
+
+// Serve static files from the same folder as server.js
+app.use(express.static(__dirname));
+
+// Serve index.html for the root route
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
