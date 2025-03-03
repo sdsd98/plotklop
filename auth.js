@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     try {
         const response = await fetch(`${BASE_URL}/isLoggedIn`, {
             method: "GET",
-            credentials: "include", // ✅ Important for JWT authentication
+            credentials: "include", // ✅ Sends cookies (JWT authentication)
         });
 
         if (!response.ok) {
