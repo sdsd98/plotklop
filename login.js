@@ -6,7 +6,8 @@ document.getElementById("login-form").addEventListener("submit", async function 
     const errorMessage = document.getElementById("errorMessage");
 
     errorMessage.textContent = "";
-
+    
+    // Validate input fields
     if (!username || !password) {
         errorMessage.textContent = "⚠️ Username and password are required!";
         errorMessage.style.color = "red";
@@ -14,8 +15,9 @@ document.getElementById("login-form").addEventListener("submit", async function 
     }
 
     try {
-        const response = await fetch("/login", {
+        const response = await fetch("http://localhost:3000/login", {
             method: "POST",
+            credentials: "include", // Important for session/cookie authentication
             headers: {
                 "Content-Type": "application/json"
             },
@@ -25,8 +27,8 @@ document.getElementById("login-form").addEventListener("submit", async function 
         const data = await response.json();
 
         if (response.ok) {
-            alert("✅ Login successful!");  // Popup on successful login
-            window.location.href = "index.html";  // Redirect to index.html
+            alert("✅ Login successful!");  
+            window.location.href = "index.html";  // Redirect to homepage
         } else {
             errorMessage.textContent = `❌ ${data.error}`;
             errorMessage.style.color = "red";
