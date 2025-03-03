@@ -9,21 +9,24 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="navdiv">
-            <div class="logo"><a href="index.html">Zelený Ráj</a></div>
-            <ul class="list_nav">
-                <li><a href="index.html">🏡 Domov</a></li>
-                <li><a href="shop.html">🛒 Obchod</a></li>
-                <li><a href="#" id="Contact">📞 Kontakt</a></li>
-            </ul>
-            <div class="nav_buttons">
-                <button class="nav_button" onclick="window.open('login.html', '_blank')">🔑 Přihlásit</button>
-                <button class="nav_button" onclick="window.location.href='register.html', '_blank'">🆕 Registrovat</button>
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="navdiv">
+        <div class="logo"><a href="index.html">Zelený Ráj</a></div>
+        <ul class="list_nav">
+            <li><a href="index.html">🏡 Domov</a></li>
+            <li><a href="shop.html">🛒 Obchod</a></li>
+            <li><a href="contact.html" id="Contact">📞 Kontakt</a></li>
+        </ul>
+        <div class="nav_buttons">
+            <button class="nav_button" onclick="window.open('login.html', '_blank')">🔑 Přihlásit</button>
+            <button class="nav_button" onclick="window.location.href='register.html'">🆕 Registrovat</button>
+            <div id="login-icon" style="display: none;">
+                <img src="https://icon-library.com/images/logged-in-icon/logged-in-icon-1.jpg" alt="Logged In" width="30" />
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Main Content -->
     <main>
@@ -67,5 +70,6 @@
             this.reset(); 
         });
     </script>
+    <script src="auth.js"></script>
 </body>
 </html>
