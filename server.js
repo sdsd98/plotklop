@@ -2,20 +2,11 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const crypto = require("crypto");
+const bcrypt = require("bcrypt"); // Secure password hashing
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require("path");
-
-// Serve static files from the same folder as server.js
-app.use(express.static(__dirname));
-
-// Serve index.html for the root route
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
-
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -41,7 +32,20 @@ const User = mongoose.model("User", userSchema);
 // Middleware
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors({ origin: "http://localhost:5500", credentials: true })); // Adjust frontend URL
+app.use(
+  cors({
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:5500",
+    credentials: true,
+  })
+);
+
+// Serve static files from the same folder as server.js
+app.use(express.static(__dirname));
+
+// Serve index.html for the root route
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 
 // Generate JWT Token
 const generateToken = (user) => {
@@ -50,14 +54,15 @@ const generateToken = (user) => {
   });
 };
 
-// Registration Endpoint
+// Registration Endpoint (With Secure Password Hashing)
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
     return res.status(400).json({ error: "All fields are required!" });
   }
-  const hashedPassword = crypto.createHash("sha256").update(password).digest("hex");
+
   try {
+    const hashedPassword = await bcrypt.hash(password, 10); // Hash password
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
     res.status(201).json({ message: "User registered successfully!" });
@@ -67,19 +72,19 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// Login Endpoint (Sends JWT token in HTTP-only Cookie)
+// Login Endpoint (Using Secure Password Hashing)
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  const hashedPassword = crypto.createHash("sha256").update(password).digest("hex");
 
   try {
-    const user = await User.findOne({ username, password: hashedPassword });
-    if (user) {
+    const user = await User.findOne({ username });
+    if (user && (await bcrypt.compare(password, user.password))) {
       const token = generateToken(user);
       res
         .cookie("token", token, {
           httpOnly: true, // Prevents client-side access to the cookie
-          secure: false, // Set to `true` in production with HTTPS
+          secure: process.env.NODE_ENV === "production", // Secure only in production
+          sameSite: "Strict",
           maxAge: 3600000, // 1 hour
         })
         .json({ success: true, message: "Login successful!" });
@@ -88,7 +93,7 @@ app.post("/login", async (req, res) => {
     }
   } catch (err) {
     console.error("❌ Error during login:", err);
-    res.status(500).json({ error: "Failed to load user data." });
+    res.status(500).json({ error: "Failed to authenticate." });
   }
 });
 
@@ -118,10 +123,4 @@ app.post("/logout", (req, res) => {
 // Start Server
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
-});
-app.post("/logout", (req, res) => {
-    res.clearCookie("token").json({ success: true, message: "Logged out successfully!" });
-});
-app.get("/", (req, res) => {
-  res.send("Welcome to my API!");
 });
