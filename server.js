@@ -112,3 +112,6 @@ app.listen(PORT, "0.0.0.0", () => {
 app.post("/logout", (req, res) => {
     res.clearCookie("token").json({ success: true, message: "Logged out successfully!" });
 });
+app.get("/", (req, res) => {
+  res.send("Welcome to my API!");
+});
