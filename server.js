@@ -29,15 +29,28 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model("User", userSchema);
 
+// ✅ Fix: CORS Configuration (Allow Local + Render Frontend)
+const allowedOrigins = [
+  "http://localhost:5500", // Local development
+  "https://opravdova-webovka.onrender.com", // ✅ Replace with your actual Render frontend URL
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Allows cookies (JWT Authentication)
+  })
+);
+
 // Middleware
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: process.env.CLIENT_ORIGIN || "http://localhost:5500",
-    credentials: true,
-  })
-);
 
 // Serve static files from the same folder as server.js
 app.use(express.static(__dirname));
