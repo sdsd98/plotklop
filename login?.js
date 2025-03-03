@@ -1,9 +1,11 @@
-const BASE_URL = "https://opravdova-webovka.onrender.com"; // ✅ Store your backend URL
+
+document.addEventListener("DOMContentLoaded", checkLoginStatus);
+const BASE_URL = "https://opravdova-webovka.onrender.com"; // ✅ Store backend URL
 
 async function checkLoginStatus() {
   try {
     const response = await fetch(`${BASE_URL}/isLoggedIn`, {
-      credentials: "include", // ✅ Important for sending cookies (JWT)
+      credentials: "include", // ✅ Sends cookies (JWT)
     });
 
     if (!response.ok) {
@@ -11,10 +13,14 @@ async function checkLoginStatus() {
     }
 
     const data = await response.json();
+    
+    // ✅ Show/Hide elements based on login status
     if (data.loggedIn) {
-      document.getElementById("login-icon").classList.add("logged-in"); // ✅ Show icon
+      document.getElementById("login-icon").style.display = "block"; // ✅ Show icon
+      document.querySelector(".nav_button").style.display = "none"; // ❌ Hide login button
     } else {
-      document.getElementById("login-icon").classList.remove("logged-in"); // ❌ Hide icon
+      document.getElementById("login-icon").style.display = "none"; // ❌ Hide icon
+      document.querySelector(".nav_button").style.display = "inline-block"; // ✅ Show login button
     }
   } catch (error) {
     console.error("❌ Error checking login status:", error);
