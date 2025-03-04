@@ -113,13 +113,17 @@
       btn.textContent = getRandomMessage();    // change to a random weird message
       moveButtonRandom(btn);                  // jump to a new random position
       playRandomSound();                      // optional sound on hover (adds to chaos)
+      // 30% chance to create a clone on hover!
+    if (Math.random() < 0.50) {
+    onButtonClick(event);  // Call the click function to create clones!
+}
     }
 
     // When button is clicked, spawn multiple new buttons (clones) in random places
     function onButtonClick(event) {
       const btn = event.target;
       btn.textContent = getRandomMessage();   // change text on click as feedback
-      const cloneCount = 3;                   // number of new buttons to spawn
+      const cloneCount = 20;                   // number of new buttons to spawn
       for (let i = 0; i < cloneCount; i++) {
         const newBtn = document.createElement("button");
         newBtn.className = "weird-button";
@@ -151,7 +155,7 @@
         randomBtn.textContent = getRandomMessage();
       }
       // Occasionally spawn a new weird button on its own (without any click)
-      if (Math.random() < 0.2) {  // 20% chance every interval
+      if (Math.random() < 0.9) {  // 20% chance every interval
         const newBtn = document.createElement("button");
         newBtn.className = "weird-button";
         newBtn.textContent = getRandomMessage();
