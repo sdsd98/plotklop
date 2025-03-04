@@ -1,85 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE UNHOLY BUTTON</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            text-align: center;
-            font-family: 'Papyrus', fantasy;
-            overflow: hidden;
-            transition: filter 0.3s ease-in-out;
-        }
-
-        .cursedButton {
-            font-size: 30px;
-            padding: 25px 50px;
-            border: 5px solid white;
-            background-color: #990000;
-            color: white;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 0 30px red, 0 0 15px white;
-            animation: flickerButton 0.1s infinite alternate;
-            cursor: url('https://community.custom-cursor.com/uploads/default/original/2X/2/2f4c66917f41fc905cebb1c02c5298de82db433d.png'), auto;
-        }
-
-        @keyframes flickerButton {
-            0% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
-            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-        }
-
-        @keyframes glitchScreen {
-            0% { filter: hue-rotate(0deg) blur(0px); }
-            50% { filter: hue-rotate(180deg) blur(8px); }
-            100% { filter: hue-rotate(0deg) blur(2px); }
-        }
-    </style>
+<meta charset="UTF-8" />
+<title>Ultra Weird Button</title>
+<style>
+  /* Basic styling and positioning for the button */
+  .weird-button {
+    position: absolute;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border: 2px solid black;
+    /* Initial appearance (will be rapidly changed by animations) */
+    background-color: red;
+    color: white;
+  }
+  /* Animations for weird effects */
+  @keyframes flashColors {
+    0%   { background-color: red; color: white; }
+    20%  { background-color: yellow; color: black; }
+    40%  { background-color: lime; color: black; }
+    60%  { background-color: cyan; color: black; }
+    80%  { background-color: magenta; color: black; }
+    100% { background-color: red; color: white; }
+  }
+  @keyframes morphShape {
+    0%   { border-radius: 0%; }
+    25%  { border-radius: 50%; }
+    50%  { border-radius: 30% 70% 70% 30%; }
+    75%  { border-radius: 50%; }
+    100% { border-radius: 0%; }
+  }
+  @keyframes bounce {
+    0%   { transform: translateY(0) rotate(0deg); }
+    30%  { transform: translateY(100px) rotate(10deg); }
+    50%  { transform: translateY(0) rotate(0deg); }
+    65%  { transform: translateY(50px) rotate(-7deg); }
+    80%  { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+  }
+  /* Apply multiple animations to the button for color, shape, and movement */
+  .weird-button {
+    animation: flashColors 2s infinite, morphShape 4s infinite ease-in-out, bounce 3s infinite ease-in-out;
+  }
+</style>
 </head>
 <body>
-    <button id="cursedButton" class="cursedButton">👁 TOUCH ME IF YOU DARE</button>
-    <audio id="whisper" src="img/demonic-whisper-100425.mp3"></audio>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const button = document.getElementById("cursedButton");
-            const whisper = document.getElementById("whisper");
+  <!-- The main interactive button -->
+  <button id="weirdButton" class="weird-button">Don't Click Me</button>
 
-            function randomPosition() {
-                button.style.left = Math.random() * (window.innerWidth - 100) + "px";
-                button.style.top = Math.random() * (window.innerHeight - 100) + "px";
-            }
+  <script>
+    // Array of bizarre messages for the button text
+    const weirdMessages = [
+      "Can't catch me!",
+      "I'm alive!",
+      "You shall not click!",
+      "Beep boop 🤖",
+      "Now I'm here",
+      "Why so serious?",
+      "404: Button not found",
+      "Catch me if you can!",
+      "Nope, nope, nope!",
+      "Try again!",
+      "Haha!",
+      "I'm over here!"
+    ];
 
-            function screenGlitch() {
-                document.body.style.animation = "glitchScreen 2s infinite";
-                setTimeout(() => { document.body.style.animation = ""; }, 4000);
-            }
+    // Helper to get a random message from the list
+    function getRandomMessage() {
+      return weirdMessages[Math.floor(Math.random() * weirdMessages.length)];
+    }
 
-            function randomMessage() {
-                const messages = ["I AM WATCHING", "RUN WHILE YOU CAN", "YOU CAN'T ESCAPE", "WHO'S BEHIND YOU?", "DID YOU HEAR THAT?"];
-                setTimeout(() => { alert(messages[Math.floor(Math.random() * messages.length)]); }, 500);
-            }
+    // Helper to move a button to a random position within the viewport
+    function moveButtonRandom(btn) {
+      const maxX = window.innerWidth - btn.offsetWidth;
+      const maxY = window.innerHeight - btn.offsetHeight;
+      const newX = Math.random() * maxX;
+      const newY = Math.random() * maxY;
+      btn.style.left = newX + "px";
+      btn.style.top  = newY + "px";
+    }
 
-            button.addEventListener("mouseenter", function () {
-                randomPosition();
-                whisper.play().catch(() => console.log("Audio playback blocked"));
-            });
+    // Audio context and parameters for sound effects (initialized on first use)
+    let audioCtx;
+    const waveforms = ["sine", "square", "sawtooth", "triangle"];
 
-            button.addEventListener("click", function () {
-                screenGlitch();
-                randomMessage();
-                button.style.display = "none";
-                setTimeout(() => { 
-                    button.style.display = "block";
-                    randomPosition();
-                }, 3000);
-            });
-        });
-    </script>
+    // Play a random sound using Web Audio API
+    function playRandomSound() {
+      // Create audio context upon first interaction
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        // Resume audio context if suspended (required in some browsers for first click)
+        if (audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+      }
+      // Set up a short oscillator sound with random frequency and waveform
+      const oscillator = audioCtx.createOscillator();
+      const gainNode  = audioCtx.createGain();
+      oscillator.type = waveforms[Math.floor(Math.random() * waveforms.length)];
+      oscillator.frequency.value = 200 + Math.random() * 800;  // 200Hz to 1000Hz
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      gainNode.gain.value = 0.2;  // lower volume to avoid excessive loudness
+      oscillator.start();
+      oscillator.stop(audioCtx.currentTime + 0.3);  // play for 0.3 seconds
+    }
+
+    // When cursor hovers over a button, move it away and change its text
+    function onButtonMouseOver(event) {
+      const btn = event.target;
+      btn.textContent = getRandomMessage();    // change to a random weird message
+      moveButtonRandom(btn);                  // jump to a new random position
+      playRandomSound();                      // optional sound on hover (adds to chaos)
+    }
+
+    // When button is clicked, spawn multiple new buttons (clones) in random places
+    function onButtonClick(event) {
+      const btn = event.target;
+      btn.textContent = getRandomMessage();   // change text on click as feedback
+      const cloneCount = 3;                   // number of new buttons to spawn
+      for (let i = 0; i < cloneCount; i++) {
+        const newBtn = document.createElement("button");
+        newBtn.className = "weird-button";
+        newBtn.textContent = getRandomMessage();
+        document.body.appendChild(newBtn);    // add the new button to the document
+        moveButtonRandom(newBtn);            // position it at a random spot
+        // Attach the same crazy behaviors to the new button
+        newBtn.addEventListener("mouseover", onButtonMouseOver);
+        newBtn.addEventListener("click", onButtonClick);
+        playRandomSound();                   // play a sound for each new spawn
+      }
+      event.stopPropagation(); // prevent click event from bubbling (just a safety precaution)
+    }
+
+    // Get the main button and attach event listeners for hover and click
+    const mainButton = document.getElementById("weirdButton");
+    mainButton.addEventListener("mouseover", onButtonMouseOver);
+    mainButton.addEventListener("click", onButtonClick);
+
+    // Start the main button at a random position initially
+    moveButtonRandom(mainButton);
+
+    // Periodically introduce unexpected behaviors (random text changes and spontaneous spawns)
+    setInterval(() => {
+      const allButtons = document.querySelectorAll(".weird-button");
+      if (allButtons.length > 0) {
+        // Randomly change the text of one existing button
+        const randomBtn = allButtons[Math.floor(Math.random() * allButtons.length)];
+        randomBtn.textContent = getRandomMessage();
+      }
+      // Occasionally spawn a new weird button on its own (without any click)
+      if (Math.random() < 0.2) {  // 20% chance every interval
+        const newBtn = document.createElement("button");
+        newBtn.className = "weird-button";
+        newBtn.textContent = getRandomMessage();
+        document.body.appendChild(newBtn);
+        moveButtonRandom(newBtn);
+        newBtn.addEventListener("mouseover", onButtonMouseOver);
+        newBtn.addEventListener("click", onButtonClick);
+        playRandomSound();
+      }
+    }, 3000);  // every 3 seconds
+  </script>
 </body>
 </html>
