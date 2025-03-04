@@ -3,12 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Volume Button</title>
+    <style>
+  
+        body {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            transition: background-color 0.3s ease-in-out;
+        }
+        
+        
+        #volumeButton {
+            font-size: 20px;
+            padding: 15px 30px;
+            margin: 20px;
+            border: 3px solid white;
+            background-color: #ff4757;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        
+        #volumeButton:hover {
+            background-color: #1e90ff;
+            border: 3px solid yellow;
+            color: black;
+            font-size: 22px;
+        }
+        
+        
+        .invisible {
+            opacity: 0;
+        }
+        
+        
+        .flashing {
+            animation: flash 0.1s infinite alternate;
+        }
+        
+        @keyframes flash {
+            from {
+                background-color: red;
+                color: white;
+            }
+            to {
+                background-color: yellow;
+                color: black;
+            }
+        }
+        
+        </style>
 </head>
 <body>
-    <button>
-        future volume 
-        
-    </button>
+
+    <button id="volumeButton">🔊 Click for Volume Magic</button>
+
+    <script src="script.js"></script>
+
 </body>
 </html>
