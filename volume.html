@@ -1,74 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Weird Button</title>
-  <style>
-    /* Styling for the button */
-    #trickyButton, .tricky-button {
-      position: fixed;                   /* Allow free movement on screen */
-      padding: 15px 30px;
-      font-size: 16px;
-      font-weight: bold;
-      border: none;
-      border-radius: 5px;
-      background-color: #6200ea;        /* Purple background */
-      color: white;
-      cursor: pointer;
-      transition: left 0.3s, top 0.3s;   /* Smooth movement when repositioned */
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE UNHOLY BUTTON</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: 'Papyrus', fantasy;
+            overflow: hidden;
+            transition: filter 0.3s ease-in-out;
+        }
+
+        .cursedButton {
+            font-size: 30px;
+            padding: 25px 50px;
+            border: 5px solid white;
+            background-color: #990000;
+            color: white;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 30px red, 0 0 15px white;
+            animation: flickerButton 0.1s infinite alternate;
+            cursor: url('https://cur.cursors-4u.net/symbols/sym-8/sym743.cur'), auto;
+        }
+
+        @keyframes flickerButton {
+            0% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        @keyframes glitchScreen {
+            0% { filter: hue-rotate(0deg) blur(0px); }
+            50% { filter: hue-rotate(180deg) blur(8px); }
+            100% { filter: hue-rotate(0deg) blur(2px); }
+        }
+    </style>
 </head>
 <body>
-  <!-- The "Catch Me!" button that will move and duplicate -->
-  <button id="trickyButton">Catch Me!</button>
-  
-  <script>
-    // Function to move a button to a random position within the viewport
-    function moveButtonRandom(btn) {
-      const btnRect = btn.getBoundingClientRect();
-      const maxX = window.innerWidth - btnRect.width;
-      const maxY = window.innerHeight - btnRect.height;
-      // Pick a random position (x, y) within the available viewport area
-      const randX = Math.random() * maxX;
-      const randY = Math.random() * maxY;
-      btn.style.left = randX + "px";
-      btn.style.top  = randY + "px";
-    }
-    
-    // Function to create a given number of clone buttons around a source button
-    function createClones(sourceBtn, numClones = 3) {
-      const rect = sourceBtn.getBoundingClientRect();
-      for (let i = 0; i < numClones; i++) {
-        const clone = document.createElement('button');
-        clone.innerText = "Catch Me!";       // Same text for clones
-        clone.className = "tricky-button";   // Use same styling class
-        // Position the clone near the source button (within +/- 50px in both directions)
-        const offsetX = (Math.random() * 100) - 50;
-        const offsetY = (Math.random() * 100) - 50;
-        clone.style.left = (rect.left + offsetX) + "px";
-        clone.style.top  = (rect.top  + offsetY) + "px";
-        // Attach the same behaviors to the clone
-        clone.addEventListener('mouseover', () => moveButtonRandom(clone));
-        clone.addEventListener('click', onButtonClick);
-        document.body.appendChild(clone);
-      }
-    }
-    
-    // Event handler for button clicks (works for the original button and clones)
-    function onButtonClick(event) {
-      event.preventDefault();
-      const btn = event.target;
-      // On click, create a few clones around the clicked button
-      createClones(btn, 3);
-      // Remove the button that was clicked (it "explodes" into the new ones)
-      btn.remove();
-    }
-    
-    // Initialize the original button's behavior
-    const originalBtn = document.getElementById('trickyButton');
-    originalBtn.addEventListener('mouseover', () => moveButtonRandom(originalBtn));
-    originalBtn.addEventListener('click', onButtonClick);
-  </script>
+    <button id="cursedButton" class="cursedButton">👁 TOUCH ME IF YOU DARE</button>
+    <audio id="whisper" src="https://www.myinstants.com/media/sounds/creepy-whisper.mp3"></audio>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const button = document.getElementById("cursedButton");
+            const whisper = document.getElementById("whisper");
+
+            function randomPosition() {
+                button.style.left = Math.random() * (window.innerWidth - 100) + "px";
+                button.style.top = Math.random() * (window.innerHeight - 100) + "px";
+            }
+
+            function screenGlitch() {
+                document.body.style.animation = "glitchScreen 2s infinite";
+                setTimeout(() => { document.body.style.animation = ""; }, 4000);
+            }
+
+            function randomMessage() {
+                const messages = ["I AM WATCHING", "RUN WHILE YOU CAN", "YOU CAN'T ESCAPE", "WHO'S BEHIND YOU?", "DID YOU HEAR THAT?"];
+                setTimeout(() => { alert(messages[Math.floor(Math.random() * messages.length)]); }, 500);
+            }
+
+            button.addEventListener("mouseenter", function () {
+                randomPosition();
+                whisper.play().catch(() => console.log("Audio playback blocked"));
+            });
+
+            button.addEventListener("click", function () {
+                screenGlitch();
+                randomMessage();
+                button.style.display = "none";
+                setTimeout(() => { 
+                    button.style.display = "block";
+                    randomPosition();
+                }, 3000);
+            });
+        });
+    </script>
 </body>
 </html>
