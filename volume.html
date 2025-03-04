@@ -1,125 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE BUTTON NEVER RESTS</title>
-
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            text-align: center;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            transition: background-color 0.1s ease-in-out, filter 0.5s ease-in-out;
-            overflow: hidden;
-        }
-
-        /* 🔥 THE HAUNTED BUTTON 🔥 */
-        .hellButton {
-            font-size: 25px;
-            padding: 20px 40px;
-            border: 3px solid white;
-            background-color: #ff0000;
-            color: white;
-            cursor: pointer;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) rotate(-3deg) scale(1.1);
-            transition: all 0.2s ease-in-out;
-            z-index: 1000;
-            filter: blur(1px) brightness(1.5) contrast(2);
-            text-shadow: 2px 2px 10px white, -2px -2px 10px red;
-            box-shadow: 0 0 50px red, 0 0 30px white;
-            animation: glitchText 0.1s infinite alternate, pulse 2s infinite alternate, wobble 0.5s infinite alternate, moveAround 5s infinite;
-        }
-
-        /* 🎭 BUTTON TEXT GLITCHES */
-        @keyframes glitchText {
-            0% { text-shadow: 3px 3px 15px red, -3px -3px 15px white; }
-            100% { text-shadow: -3px -3px 15px red, 3px 3px 15px white; }
-        }
-
-        /* 🔄 BUTTON PULSES */
-        @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(1.1); }
-            100% { transform: translate(-50%, -50%) scale(1.2); }
-        }
-
-        /* 💀 BUTTON WOBBLES */
-        @keyframes wobble {
-            0% { transform: translate(-50%, -50%) rotate(-2deg); }
-            100% { transform: translate(-50%, -50%) rotate(2deg); }
-        }
-
-        /* 🌀 BUTTON MOVES AROUND ON ITS OWN */
-        @keyframes moveAround {
-            0% { left: 50%; top: 50%; }
-            25% { left: 20%; top: 30%; }
-            50% { left: 80%; top: 70%; }
-            75% { left: 40%; top: 20%; }
-            100% { left: 50%; top: 50%; }
-        }
-
-        /* 🔥 SCREEN RANDOMLY FLICKERS */
-        @keyframes flicker {
-            0% { filter: hue-rotate(0deg) blur(0px); }
-            50% { filter: hue-rotate(90deg) blur(5px); }
-            100% { filter: hue-rotate(180deg) blur(2px); }
-        }
-        
-    </style>
+  <meta charset="UTF-8" />
+  <title>Weird Button</title>
+  <style>
+    /* Styling for the button */
+    #trickyButton, .tricky-button {
+      position: fixed;                   /* Allow free movement on screen */
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      background-color: #6200ea;        /* Purple background */
+      color: white;
+      cursor: pointer;
+      transition: left 0.3s, top 0.3s;   /* Smooth movement when repositioned */
+    }
+  </style>
 </head>
 <body>
-
-    <button id="hellButton" class="hellButton">🔊 IT'S ALWAYS WATCHING</button>
-    <audio id="elevatorMusic" loop autoplay>
-        <source src="https://www.myinstants.com/media/sounds/elevator-music.mp3" type="audio/mpeg">
-    </audio>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const button = document.getElementById("hellButton");
-            const elevatorMusic = document.getElementById("elevatorMusic");
-
-            function playMusic() {
-                elevatorMusic.volume = 0.5;
-                elevatorMusic.play();
-            }
-            playMusic();
-
-            // RANDOM EVENTS EVERY FEW SECONDS
-            function randomEvent() {
-                const events = [
-                    () => { document.body.style.backgroundColor = `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`; },
-                    () => { document.body.style.animation = "flicker 2s infinite"; setTimeout(() => { document.body.style.animation = ""; }, 5000); },
-                    () => { let whisper = new Audio("https://www.myinstants.com/media/sounds/creepy-whisper.mp3"); whisper.play(); },
-                    () => { button.innerText = ["👁️ I SEE YOU", "RUN", "🔪 TOO LATE", "👀 WATCHING", "YOU CAN'T ESCAPE"][Math.floor(Math.random() * 5)]; },
-                    () => { document.title = ["ERROR: SYSTEM FAILING", "DON'T LOOK BEHIND YOU", "IT'S TOO LATE", "NO ESCAPE"][Math.floor(Math.random() * 4)]; },
-                    () => { let newText = document.createElement("p"); newText.innerText = "🔮 IT'S MOVING ON ITS OWN..."; newText.style.position = "absolute"; newText.style.left = Math.random() * window.innerWidth + "px"; newText.style.top = Math.random() * window.innerHeight + "px"; newText.style.color = "red"; newText.style.fontSize = "30px"; document.body.appendChild(newText); setTimeout(() => { newText.remove(); }, 5000); },
-                    () => { button.style.left = Math.random() * window.innerWidth + "px"; button.style.top = Math.random() * window.innerHeight + "px"; },
-                    () => { button.style.transform = `rotate(${Math.random() * 360}deg) scale(${Math.random() * 1.5 + 0.5})`; },
-                ];
-                events[Math.floor(Math.random() * events.length)]();
-            }
-
-            setInterval(randomEvent, 4000);
-
-            // BUTTON ESCAPES ON HOVER
-            button.addEventListener("mouseenter", function () {
-                button.style.left = Math.random() * window.innerWidth + "px";
-                button.style.top = Math.random() * window.innerHeight + "px";
-            });
-
-            // GLITCH THE SCREEN ON CLICK
-            button.addEventListener("click", function () {
-                document.body.style.filter = "invert(1) blur(5px)";
-                setTimeout(() => { document.body.style.filter = "none"; }, 1000);
-                alert("⚠️ SYSTEM ERROR: YOU CANNOT ESCAPE.");
-            });
-        });
-    </script>
-
+  <!-- The "Catch Me!" button that will move and duplicate -->
+  <button id="trickyButton">Catch Me!</button>
+  
+  <script>
+    // Function to move a button to a random position within the viewport
+    function moveButtonRandom(btn) {
+      const btnRect = btn.getBoundingClientRect();
+      const maxX = window.innerWidth - btnRect.width;
+      const maxY = window.innerHeight - btnRect.height;
+      // Pick a random position (x, y) within the available viewport area
+      const randX = Math.random() * maxX;
+      const randY = Math.random() * maxY;
+      btn.style.left = randX + "px";
+      btn.style.top  = randY + "px";
+    }
+    
+    // Function to create a given number of clone buttons around a source button
+    function createClones(sourceBtn, numClones = 3) {
+      const rect = sourceBtn.getBoundingClientRect();
+      for (let i = 0; i < numClones; i++) {
+        const clone = document.createElement('button');
+        clone.innerText = "Catch Me!";       // Same text for clones
+        clone.className = "tricky-button";   // Use same styling class
+        // Position the clone near the source button (within +/- 50px in both directions)
+        const offsetX = (Math.random() * 100) - 50;
+        const offsetY = (Math.random() * 100) - 50;
+        clone.style.left = (rect.left + offsetX) + "px";
+        clone.style.top  = (rect.top  + offsetY) + "px";
+        // Attach the same behaviors to the clone
+        clone.addEventListener('mouseover', () => moveButtonRandom(clone));
+        clone.addEventListener('click', onButtonClick);
+        document.body.appendChild(clone);
+      }
+    }
+    
+    // Event handler for button clicks (works for the original button and clones)
+    function onButtonClick(event) {
+      event.preventDefault();
+      const btn = event.target;
+      // On click, create a few clones around the clicked button
+      createClones(btn, 3);
+      // Remove the button that was clicked (it "explodes" into the new ones)
+      btn.remove();
+    }
+    
+    // Initialize the original button's behavior
+    const originalBtn = document.getElementById('trickyButton');
+    originalBtn.addEventListener('mouseover', () => moveButtonRandom(originalBtn));
+    originalBtn.addEventListener('click', onButtonClick);
+  </script>
 </body>
 </html>
