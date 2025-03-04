@@ -52,19 +52,44 @@
   <script>
     // Array of bizarre messages for the button text
     const weirdMessages = [
-      "Can't catch me!",
-      "I'm alive!",
-      "You shall not click!",
-      "Beep boop 🤖",
-      "Now I'm here",
-      "Why so serious?",
-      "404: Button not found",
-      "Catch me if you can!",
-      "Nope, nope, nope!",
-      "Try again!",
-      "Haha!",
-      "I'm over here!"
-    ];
+  "🚨 SYSTEM BREACH DETECTED 🚨",
+  "FATAL ERROR: B̷̹̗̿Ư̵͇T̶̡̈T̶̟͗O̴̤͝N̴͓̍ INFECTED",
+  "SELF-DESTRUCT IN 3...2...💀",
+  "HACKING... ██████ 99%",
+  "INITIATING PAYLOAD.EXE 💾",
+  "ERROR 0x0000DEAD",
+  "🔥 SYSTEM OVERRIDE ACTIVE 🔥",
+  "Downloading... 🏴‍☠️",
+  "Your files are now mine 😈",
+  "R̶̛̯̪͖̽̍̑̾̽Ȕ̸͖̙̪̘͖͆͝Ṅ̸̰̺̪̤̠̹̝͛̍̈͂͋͠",
+  "WARNING: UNAUTHORIZED ACCESS DETECTED 🚔",
+  "Click = RANSOMWARE ACTIVATED 💀",
+  "😈 Injecting trojan... done.",
+  "B̶̡̛͙͎̗̬̩̳̼͌̍̆̊͌̀̕Ư̵̪͛̆́̈́̾͝T̵̳̩̝͕̜͎͋́̑͂̋̐͘͝T̴̲̩̘̥̤̎̓̐̇͂̅́Ȍ̵͙̥̙̳̲͗͐̎̋̈́N̵̛̪͑͊̈ ̷̛͙̳̑̽̔̚͜C̴̯̓̎̆̏̈́̽̕O̸̝̝͙͑̿̅̕̕̚R̷̤̼̗̻̓̊̒̏͝R̶̢̝̹͓͑̈́̑͑̀Ǘ̸͖͙̎̊̿͒P̸̡̜̞̈́̅̕̚T̷͚̘̆̏͋͑͜͠E̵̞͎̟̯̅͂͐̅̕͠D̴̢̙̻̩̀͌̇̽̕",
+  "💾 Formatting drive C: ...",
+  "🔁 LOADING INFINITE LOOP...",
+  "BOTNET ACTIVATED. 😎",
+  "Downloading *something*... 📂",
+  "INITIATING ANOMALY",
+  "⚠️ FIREWALL DISABLED!",
+  "H3LP M3...",
+  "Click = D̵̙̖͎̰̰̩̎̏̿̅͛̕͘I̶͎̬̘͙̩̜̎̚͜S̷͙̓̔̈̐͂͝Ä̵̖̻̱̤͕̰̘́̒̄̽̆̔͑̋P̴̛̺̠̐̆̚͝͝P̴͈̰̓͂̐̒̕̕E̵͎̺͉͑̊͂̈́͘Á̶̲̹̼̗̩̖̳̍R̸̡̨̳̬̤͉̰͑̀̎͊͝I̷̘̯̓͑̇͝N̷̝̼̆́̈̓̔ͅḠ̴̜̗̔̑͗̆̏͘͝",
+  "Goodbye 👋💀",
+  "ACCESS GRANTED. INITIATING...",
+  "🔥 CRITICAL SYSTEM FAILURE 🔥",
+  "YOUR IP HAS BEEN LOGGED 😎",
+  "🚨 FBI OPEN UP 🚨",
+  "PROCESSING...██████████ 100%",
+  "CONGRATULATIONS! YOU WON A VIRUS! 🎉",
+  "CTRL+ALT+DEL WON'T SAVE YOU",
+  "🌎 CONNECTING TO DEEP WEB...",
+  "You shouldn’t have clicked that.",
+  "Initiating mass destruction...",
+  "DO NOT TOUCH ME 😡",
+  "Spreading malware... 🦠",
+  "Your screen is mine now. 🕶️"
+];
+
 
     // Helper to get a random message from the list
     function getRandomMessage() {
@@ -113,9 +138,15 @@
       btn.textContent = getRandomMessage();    // change to a random weird message
       moveButtonRandom(btn);                  // jump to a new random position
       playRandomSound();                      // optional sound on hover (adds to chaos)
+      spinBrowser(); // Random chance to spin the browser
+
+
+
       // 30% chance to create a clone on hover!
     if (Math.random() < 0.50) {
     onButtonClick(event);  // Call the click function to create clones!
+    
+
 }
     }
 
@@ -166,6 +197,19 @@
         playRandomSound();
       }
     }, 3000);  // every 3 seconds
+    function spinBrowser() {
+  // Random chance to spin (5% per hover)
+  if (Math.random() < 0.3) {
+    document.body.style.transition = "transform 3s ease-in-out"; 
+    document.body.style.transform = "rotate(360deg)"; // Spins once
+
+    // Reset rotation after 3 seconds
+    setTimeout(() => {
+      document.body.style.transform = "rotate(0deg)";
+    }, 3000);
+  }
+}
+
   </script>
 </body>
 </html>
