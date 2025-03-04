@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE BUTTON THAT BREAKS REALITY</title>
+    <title>WELCOME TO DIGITAL HELL</title>
 
     <style>
-        /* 🖥️ THE DOOMSDAY STYLES */
         body {
             background-color: black;
             color: white;
@@ -16,8 +15,8 @@
             overflow: hidden;
         }
 
-        /* 💀 THE BUTTON OF PURE CHAOS */
-        .chaosButton {
+        /* 🔥 CURSED BUTTON 🔥 */
+        .hellButton {
             font-size: 20px;
             padding: 15px 30px;
             border: 3px solid white;
@@ -32,7 +31,7 @@
             z-index: 1000;
         }
 
-        /* 🌀 NIGHTMARE MODE */
+        /* 💀 FLASHING NIGHTMARE MODE 💀 */
         .flashing {
             animation: flash 0.05s infinite alternate;
         }
@@ -52,7 +51,7 @@
             to { transform: rotate(360deg); }
         }
 
-        /* 🎭 BUTTON SHAKES LIKE IT'S HAUNTED */
+        /* 🎭 BUTTON SHAKES LIKE A DEMON */
         .shake {
             animation: shake 0.1s infinite;
         }
@@ -67,111 +66,58 @@
 </head>
 <body>
 
-    <button id="chaosButton" class="chaosButton">🔊 Click for Instant Regret</button>
+    <button id="hellButton" class="hellButton">🔊 ENTER DIGITAL HELL</button>
+    <audio id="elevatorMusic" loop autoplay>
+        <source src="https://www.myinstants.com/media/sounds/elevator-music.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const button = document.getElementById("chaosButton");
+            const button = document.getElementById("hellButton");
+            const elevatorMusic = document.getElementById("elevatorMusic");
             let clickCount = 0;
             let insanityLevel = 0;
+
+            // PLAY ELEVATOR MUSIC FOREVER
+            function playMusic() {
+                elevatorMusic.volume = 0.5;
+                elevatorMusic.play();
+            }
+            playMusic();
 
             button.addEventListener("click", function () {
                 clickCount++;
                 insanityLevel++;
 
                 const effects = [
-                    () => {
-                        alert(`WARNING: SYSTEM INSTABILITY DETECTED (${clickCount} clicks).`);
-                    },
-                    () => {
-                        button.classList.add("shake");
-                        setTimeout(() => { button.classList.remove("shake"); }, 2000);
-                        alert("⚠️ The button is losing control!");
-                    },
-                    () => {
-                        document.body.classList.add("flashing");
-                        setTimeout(() => { document.body.classList.remove("flashing"); }, 3000);
-                        alert("🌈 The fabric of reality is breaking!");
-                    },
-                    () => {
-                        button.style.left = Math.random() * window.innerWidth + "px";
-                        button.style.top = Math.random() * window.innerHeight + "px";
-                        alert("🚀 The button has teleported!");
-                    },
-                    () => {
-                        button.classList.add("rotating");
-                        setTimeout(() => { button.classList.remove("rotating"); }, 5000);
-                        alert("🔄 SPINNING INTO THE VOID!");
-                    },
-                    () => {
-                        let newButton = button.cloneNode(true);
-                        newButton.style.left = Math.random() * window.innerWidth + "px";
-                        newButton.style.top = Math.random() * window.innerHeight + "px";
-                        document.body.appendChild(newButton);
-                        newButton.addEventListener("click", button.click);
-                        alert("🧬 CLONING ACTIVATED. GOOD LUCK.");
-                    },
-                    () => {
-                        document.title = `ERROR: CHAOS DETECTED (${clickCount} clicks)`;
-                    },
-                    () => {
-                        let win = window.open("", "", "width=400,height=200");
-                        win.document.write("<h1>CRITICAL ERROR</h1><p>Your system is failing.</p>");
-                        win.document.write("<button onclick='window.close()'>Close</button>");
-                    },
-                    () => {
-                        let audio = new Audio("https://www.myinstants.com/media/sounds/fart-with-extra-reverb.mp3");
-                        audio.play();
-                        alert("💨 UNEXPECTED NOISE DETECTED.");
-                    },
-                    () => {
-                        let fakeError = confirm("🛑 SYSTEM FAILURE DETECTED. Click OK to fix.");
-                        if (!fakeError) {
-                            alert("🔥 TOO LATE. THE DAMAGE IS DONE.");
-                        }
-                    },
-                    () => {
-                        let shakeInterval = setInterval(() => {
-                            window.moveBy(Math.random() * 10 - 5, Math.random() * 10 - 5);
-                        }, 50);
-                        setTimeout(() => { clearInterval(shakeInterval); }, 5000);
-                        alert("🌪️ YOUR BROWSER IS NOW HAUNTED.");
-                    }
+                    () => { alert(`WARNING: SYSTEM CORRUPTION DETECTED (${clickCount} clicks).`); },
+                    () => { button.classList.add("shake"); setTimeout(() => { button.classList.remove("shake"); }, 2000); alert("⚠️ THE BUTTON IS CURSED!"); },
+                    () => { document.body.classList.add("flashing"); setTimeout(() => { document.body.classList.remove("flashing"); }, 3000); alert("🌈 REALITY IS TEARING APART!"); },
+                    () => { button.style.left = Math.random() * window.innerWidth + "px"; button.style.top = Math.random() * window.innerHeight + "px"; alert("🚀 THE BUTTON ESCAPED!"); },
+                    () => { button.classList.add("rotating"); setTimeout(() => { button.classList.remove("rotating"); }, 5000); alert("🔄 SPINNING INTO THE ABYSS!"); },
+                    () => { let clone = button.cloneNode(true); clone.style.left = Math.random() * window.innerWidth + "px"; clone.style.top = Math.random() * window.innerHeight + "px"; document.body.appendChild(clone); clone.addEventListener("click", button.click); alert("👻 CLONING ACTIVATED!"); },
+                    () => { document.title = `ERROR: SYSTEM FAILING (${clickCount} clicks)`; },
+                    () => { let win = window.open("", "", "width=400,height=200"); win.document.write("<h1>WARNING!</h1><p>Your system is failing.</p>"); win.document.write("<button onclick='window.close()'>Close</button>"); },
+                    () => { let audio = new Audio("https://www.myinstants.com/media/sounds/creepy-whisper.mp3"); audio.play(); alert("👁️ DO YOU HEAR THEM?"); },
+                    () => { let fakeError = confirm("🛑 SYSTEM FAILURE DETECTED. Click OK to fix."); if (!fakeError) { alert("🔥 TOO LATE."); } },
+                    () => { let shakeInterval = setInterval(() => { window.moveBy(Math.random() * 10 - 5, Math.random() * 10 - 5); }, 50); setTimeout(() => { clearInterval(shakeInterval); }, 5000); alert("🌪️ THE INTERNET IS HAUNTED."); }
                 ];
 
-                // As insanity increases, add extra random chaos
+                // EXTRA NIGHTMARE MODE
                 if (insanityLevel >= 5) {
-                    effects.push(() => {
-                        document.body.style.transform = `rotate(${Math.random() * 360}deg)`;
-                    });
-                    effects.push(() => {
-                        let typing = document.createElement("p");
-                        typing.innerText = "🔮 The button is typing by itself...";
-                        typing.style.fontSize = "25px";
-                        typing.style.position = "absolute";
-                        typing.style.left = Math.random() * window.innerWidth + "px";
-                        typing.style.top = Math.random() * window.innerHeight + "px";
-                        document.body.appendChild(typing);
-                        setTimeout(() => { typing.remove(); }, 3000);
-                    });
-                    effects.push(() => {
-                        document.body.style.backgroundColor = `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`;
-                    });
+                    effects.push(() => { document.body.style.transform = `rotate(${Math.random() * 360}deg)`; });
+                    effects.push(() => { let typing = document.createElement("p"); typing.innerText = "🔮 THE VOID IS WATCHING..."; typing.style.fontSize = "25px"; typing.style.position = "absolute"; typing.style.left = Math.random() * window.innerWidth + "px"; typing.style.top = Math.random() * window.innerHeight + "px"; document.body.appendChild(typing); setTimeout(() => { typing.remove(); }, 3000); });
+                    effects.push(() => { document.body.style.backgroundColor = `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`; });
                 }
 
-                // RANDOMLY EXECUTE AN EFFECT
+                // RANDOMLY EXECUTE A NIGHTMARE
                 effects[Math.floor(Math.random() * effects.length)]();
             });
 
-            // ADD CHAOS TO KEYBOARD EVENTS
+            // ADD KEYBOARD CHAOS
             document.addEventListener("keydown", function (event) {
-                if (event.key === "Escape") {
-                    alert("🛑 ESC WON'T SAVE YOU.");
-                }
-                if (event.key === "Enter") {
-                    alert("⏳ NOW YOU'VE REALLY DONE IT.");
-                    document.body.classList.add("flashing");
-                }
+                if (event.key === "Escape") { alert("🛑 ESCAPE IS NOT AN OPTION."); }
+                if (event.key === "Enter") { alert("⏳ NOW YOU'VE REALLY DONE IT."); document.body.classList.add("flashing"); }
             });
 
             // RANDOMLY MOVE BUTTON EVERY FEW SECONDS
