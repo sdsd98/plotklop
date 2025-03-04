@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WELCOME TO DIGITAL HELL</title>
+    <title>ENTER DIGITAL HELL</title>
 
     <style>
         body {
@@ -11,11 +11,11 @@
             color: white;
             text-align: center;
             font-family: 'Comic Sans MS', cursive, sans-serif;
-            transition: all 0.1s ease-in-out;
+            transition: background-color 0.1s ease-in-out, filter 0.5s ease-in-out;
             overflow: hidden;
         }
 
-        /* 🔥 CURSED BUTTON 🔥 */
+        /* 💀 CURSED BUTTON 💀 */
         .hellButton {
             font-size: 20px;
             padding: 15px 30px;
@@ -31,7 +31,7 @@
             z-index: 1000;
         }
 
-        /* 💀 FLASHING NIGHTMARE MODE 💀 */
+        /* 🔥 NIGHTMARE FLASHING 🔥 */
         .flashing {
             animation: flash 0.05s infinite alternate;
         }
@@ -41,17 +41,19 @@
             to { background-color: blue; color: white; }
         }
 
-        /* 🔄 SCREEN ROTATION CHAOS */
-        .rotating {
-            animation: rotate 0.5s infinite linear;
+        /* 🔄 SCREEN DISTORTION */
+        .warped {
+            filter: hue-rotate(180deg) blur(5px);
+            animation: warp 2s infinite alternate;
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes warp {
+            0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg) blur(0px); }
+            50% { transform: scale(1.1) rotate(5deg); filter: hue-rotate(90deg) blur(3px); }
+            100% { transform: scale(0.9) rotate(-5deg); filter: hue-rotate(180deg) blur(5px); }
         }
 
-        /* 🎭 BUTTON SHAKES LIKE A DEMON */
+        /* 🎭 SHAKING LIKE A DEMON */
         .shake {
             animation: shake 0.1s infinite;
         }
@@ -62,11 +64,12 @@
             50% { transform: translate(-52%, -50%) rotate(-5deg); }
             75% { transform: translate(-48%, -50%) rotate(5deg); }
         }
+
     </style>
 </head>
 <body>
 
-    <button id="hellButton" class="hellButton">🔊 ENTER DIGITAL HELL</button>
+    <button id="hellButton" class="hellButton">🔊 </button>
     <audio id="elevatorMusic" loop autoplay>
         <source src="https://www.myinstants.com/media/sounds/elevator-music.mp3" type="audio/mpeg">
     </audio>
@@ -76,7 +79,7 @@
             const button = document.getElementById("hellButton");
             const elevatorMusic = document.getElementById("elevatorMusic");
             let clickCount = 0;
-            let insanityLevel = 0;
+            let maxPopups = 3; // LIMITING MAX POPUPS
 
             // PLAY ELEVATOR MUSIC FOREVER
             function playMusic() {
@@ -87,30 +90,26 @@
 
             button.addEventListener("click", function () {
                 clickCount++;
-                insanityLevel++;
 
                 const effects = [
                     () => { alert(`WARNING: SYSTEM CORRUPTION DETECTED (${clickCount} clicks).`); },
-                    () => { button.classList.add("shake"); setTimeout(() => { button.classList.remove("shake"); }, 2000); alert("⚠️ THE BUTTON IS CURSED!"); },
-                    () => { document.body.classList.add("flashing"); setTimeout(() => { document.body.classList.remove("flashing"); }, 3000); alert("🌈 REALITY IS TEARING APART!"); },
-                    () => { button.style.left = Math.random() * window.innerWidth + "px"; button.style.top = Math.random() * window.innerHeight + "px"; alert("🚀 THE BUTTON ESCAPED!"); },
-                    () => { button.classList.add("rotating"); setTimeout(() => { button.classList.remove("rotating"); }, 5000); alert("🔄 SPINNING INTO THE ABYSS!"); },
-                    () => { let clone = button.cloneNode(true); clone.style.left = Math.random() * window.innerWidth + "px"; clone.style.top = Math.random() * window.innerHeight + "px"; document.body.appendChild(clone); clone.addEventListener("click", button.click); alert("👻 CLONING ACTIVATED!"); },
+                    () => { button.classList.add("shake"); setTimeout(() => { button.classList.remove("shake"); }, 2000); },
+                    () => { document.body.classList.add("flashing"); setTimeout(() => { document.body.classList.remove("flashing"); }, 3000); },
+                    () => { button.style.left = Math.random() * window.innerWidth + "px"; button.style.top = Math.random() * window.innerHeight + "px"; },
+                    () => { button.classList.add("warped"); setTimeout(() => { button.classList.remove("warped"); }, 5000); },
+                    () => { if (maxPopups > 0) { alert("👁️ DO YOU FEEL WATCHED?"); maxPopups--; } },
                     () => { document.title = `ERROR: SYSTEM FAILING (${clickCount} clicks)`; },
-                    () => { let win = window.open("", "", "width=400,height=200"); win.document.write("<h1>WARNING!</h1><p>Your system is failing.</p>"); win.document.write("<button onclick='window.close()'>Close</button>"); },
-                    () => { let audio = new Audio("https://www.myinstants.com/media/sounds/creepy-whisper.mp3"); audio.play(); alert("👁️ DO YOU HEAR THEM?"); },
-                    () => { let fakeError = confirm("🛑 SYSTEM FAILURE DETECTED. Click OK to fix."); if (!fakeError) { alert("🔥 TOO LATE."); } },
-                    () => { let shakeInterval = setInterval(() => { window.moveBy(Math.random() * 10 - 5, Math.random() * 10 - 5); }, 50); setTimeout(() => { clearInterval(shakeInterval); }, 5000); alert("🌪️ THE INTERNET IS HAUNTED."); }
+                    () => { if (clickCount % 3 === 0) { document.body.style.backgroundColor = `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`; } },
+                    () => { let typing = document.createElement("p"); typing.innerText = "🔮 THE VOID IS WATCHING..."; typing.style.fontSize = "25px"; typing.style.position = "absolute"; typing.style.left = Math.random() * window.innerWidth + "px"; typing.style.top = Math.random() * window.innerHeight + "px"; document.body.appendChild(typing); setTimeout(() => { typing.remove(); }, 3000); },
+                    () => { let audio = new Audio("https://www.myinstants.com/media/sounds/creepy-whisper.mp3"); audio.play(); }
                 ];
 
-                // EXTRA NIGHTMARE MODE
-                if (insanityLevel >= 5) {
-                    effects.push(() => { document.body.style.transform = `rotate(${Math.random() * 360}deg)`; });
-                    effects.push(() => { let typing = document.createElement("p"); typing.innerText = "🔮 THE VOID IS WATCHING..."; typing.style.fontSize = "25px"; typing.style.position = "absolute"; typing.style.left = Math.random() * window.innerWidth + "px"; typing.style.top = Math.random() * window.innerHeight + "px"; document.body.appendChild(typing); setTimeout(() => { typing.remove(); }, 3000); });
-                    effects.push(() => { document.body.style.backgroundColor = `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`; });
+                if (clickCount >= 10) { // ACTIVATE DOOM MODE
+                    effects.push(() => { document.body.style.filter = "invert(1)"; });
+                    effects.push(() => { document.body.style.transform = "rotate(180deg)"; });
+                    effects.push(() => { button.innerText = "🔥 YOU CANNOT ESCAPE 🔥"; });
                 }
 
-                // RANDOMLY EXECUTE A NIGHTMARE
                 effects[Math.floor(Math.random() * effects.length)]();
             });
 
