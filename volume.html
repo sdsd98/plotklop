@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENTER DIGITAL HELL</title>
+    <title>CURSED BUTTON</title>
 
     <style>
         body {
@@ -15,61 +15,75 @@
             overflow: hidden;
         }
 
-        /* 💀 CURSED BUTTON 💀 */
+        /* 🔥 THE CURSED BUTTON 🔥 */
         .hellButton {
-            font-size: 20px;
-            padding: 15px 30px;
+            font-size: 25px;
+            padding: 20px 40px;
             border: 3px solid white;
             background-color: #ff0000;
             color: white;
             cursor: pointer;
-            transition: all 0.2s ease-in-out;
             position: absolute;
             left: 50%;
             top: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%) rotate(-3deg) scale(1.1);
+            transition: all 0.2s ease-in-out;
             z-index: 1000;
+            filter: blur(1px) brightness(1.5) contrast(2);
+            text-shadow: 2px 2px 10px white, -2px -2px 10px red;
+            box-shadow: 0 0 50px red, 0 0 30px white;
+            animation: glitchText 0.1s infinite alternate, pulse 2s infinite alternate, wobble 0.5s infinite alternate;
         }
 
-        /* 🔥 NIGHTMARE FLASHING 🔥 */
-        .flashing {
-            animation: flash 0.05s infinite alternate;
+        /* 🎭 BUTTON TEXT GLITCHES */
+        @keyframes glitchText {
+            0% { text-shadow: 3px 3px 15px red, -3px -3px 15px white; }
+            100% { text-shadow: -3px -3px 15px red, 3px 3px 15px white; }
         }
 
-        @keyframes flash {
-            from { background-color: red; color: yellow; }
-            to { background-color: blue; color: white; }
+        /* 🔄 BUTTON PULSES */
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1.2); }
         }
 
-        /* 🔄 SCREEN DISTORTION */
-        .warped {
-            filter: hue-rotate(180deg) blur(5px);
-            animation: warp 2s infinite alternate;
+        /* 💀 BUTTON WOBBLES */
+        @keyframes wobble {
+            0% { transform: translate(-50%, -50%) rotate(-2deg); }
+            100% { transform: translate(-50%, -50%) rotate(2deg); }
         }
 
-        @keyframes warp {
-            0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg) blur(0px); }
-            50% { transform: scale(1.1) rotate(5deg); filter: hue-rotate(90deg) blur(3px); }
-            100% { transform: scale(0.9) rotate(-5deg); filter: hue-rotate(180deg) blur(5px); }
+        /* 🌀 BUTTON TWISTS MORE ON HOVER */
+        .hellButton:hover {
+            filter: blur(2px) brightness(2) contrast(3);
+            transform: translate(-50%, -50%) rotate(10deg) scale(1.4);
+            background-color: black;
+            border-color: red;
+            color: red;
+            text-shadow: 5px 5px 20px red, -5px -5px 20px white;
+            box-shadow: 0 0 80px white, 0 0 50px red;
+            animation: glitchTextHover 0.1s infinite alternate, shake 0.1s infinite;
         }
 
-        /* 🎭 SHAKING LIKE A DEMON */
-        .shake {
-            animation: shake 0.1s infinite;
+        /* 📉 BUTTON FLICKERS ON HOVER */
+        @keyframes glitchTextHover {
+            0% { text-shadow: 5px 5px 20px white, -5px -5px 20px red; }
+            100% { text-shadow: -5px -5px 20px white, 5px 5px 20px red; }
         }
 
+        /* 🤯 BUTTON SHAKES ON HOVER */
         @keyframes shake {
-            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-            25% { transform: translate(-48%, -50%) rotate(5deg); }
-            50% { transform: translate(-52%, -50%) rotate(-5deg); }
-            75% { transform: translate(-48%, -50%) rotate(5deg); }
+            0%, 100% { transform: translate(-50%, -50%) rotate(10deg) scale(1.4); }
+            25% { transform: translate(-48%, -50%) rotate(12deg); }
+            50% { transform: translate(-52%, -50%) rotate(8deg); }
+            75% { transform: translate(-49%, -50%) rotate(11deg); }
         }
 
     </style>
 </head>
 <body>
 
-    <button id="hellButton" class="hellButton">🔊 </button>
+    <button id="hellButton" class="hellButton">🔊 CURSED ENTRY</button>
     <audio id="elevatorMusic" loop autoplay>
         <source src="https://www.myinstants.com/media/sounds/elevator-music.mp3" type="audio/mpeg">
     </audio>
@@ -78,52 +92,26 @@
         document.addEventListener("DOMContentLoaded", function () {
             const button = document.getElementById("hellButton");
             const elevatorMusic = document.getElementById("elevatorMusic");
-            let clickCount = 0;
-            let maxPopups = 3; // LIMITING MAX POPUPS
 
-            // PLAY ELEVATOR MUSIC FOREVER
+            // MUSIC PLAYS FOREVER
             function playMusic() {
                 elevatorMusic.volume = 0.5;
                 elevatorMusic.play();
             }
             playMusic();
 
-            button.addEventListener("click", function () {
-                clickCount++;
-
-                const effects = [
-                    () => { alert(`WARNING: SYSTEM CORRUPTION DETECTED (${clickCount} clicks).`); },
-                    () => { button.classList.add("shake"); setTimeout(() => { button.classList.remove("shake"); }, 2000); },
-                    () => { document.body.classList.add("flashing"); setTimeout(() => { document.body.classList.remove("flashing"); }, 3000); },
-                    () => { button.style.left = Math.random() * window.innerWidth + "px"; button.style.top = Math.random() * window.innerHeight + "px"; },
-                    () => { button.classList.add("warped"); setTimeout(() => { button.classList.remove("warped"); }, 5000); },
-                    () => { if (maxPopups > 0) { alert("👁️ DO YOU FEEL WATCHED?"); maxPopups--; } },
-                    () => { document.title = `ERROR: SYSTEM FAILING (${clickCount} clicks)`; },
-                    () => { if (clickCount % 3 === 0) { document.body.style.backgroundColor = `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`; } },
-                    () => { let typing = document.createElement("p"); typing.innerText = "🔮 THE VOID IS WATCHING..."; typing.style.fontSize = "25px"; typing.style.position = "absolute"; typing.style.left = Math.random() * window.innerWidth + "px"; typing.style.top = Math.random() * window.innerHeight + "px"; document.body.appendChild(typing); setTimeout(() => { typing.remove(); }, 3000); },
-                    () => { let audio = new Audio("https://www.myinstants.com/media/sounds/creepy-whisper.mp3"); audio.play(); }
-                ];
-
-                if (clickCount >= 10) { // ACTIVATE DOOM MODE
-                    effects.push(() => { document.body.style.filter = "invert(1)"; });
-                    effects.push(() => { document.body.style.transform = "rotate(180deg)"; });
-                    effects.push(() => { button.innerText = "🔥 YOU CANNOT ESCAPE 🔥"; });
-                }
-
-                effects[Math.floor(Math.random() * effects.length)]();
-            });
-
-            // ADD KEYBOARD CHAOS
-            document.addEventListener("keydown", function (event) {
-                if (event.key === "Escape") { alert("🛑 ESCAPE IS NOT AN OPTION."); }
-                if (event.key === "Enter") { alert("⏳ NOW YOU'VE REALLY DONE IT."); document.body.classList.add("flashing"); }
-            });
-
-            // RANDOMLY MOVE BUTTON EVERY FEW SECONDS
-            setInterval(() => {
+            // BUTTON ESCAPES ON HOVER
+            button.addEventListener("mouseenter", function () {
                 button.style.left = Math.random() * window.innerWidth + "px";
                 button.style.top = Math.random() * window.innerHeight + "px";
-            }, 3000);
+            });
+
+            // GLITCH THE SCREEN ON CLICK
+            button.addEventListener("click", function () {
+                document.body.style.filter = "invert(1) blur(5px)";
+                setTimeout(() => { document.body.style.filter = "none"; }, 1000);
+                alert("⚠️ SYSTEM ERROR: YOU CANNOT ESCAPE.");
+            });
         });
     </script>
 
