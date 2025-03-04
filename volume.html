@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CURSED BUTTON</title>
+    <title>THE BUTTON NEVER RESTS</title>
 
     <style>
         body {
@@ -15,7 +15,7 @@
             overflow: hidden;
         }
 
-        /* 🔥 THE CURSED BUTTON 🔥 */
+        /* 🔥 THE HAUNTED BUTTON 🔥 */
         .hellButton {
             font-size: 25px;
             padding: 20px 40px;
@@ -32,7 +32,7 @@
             filter: blur(1px) brightness(1.5) contrast(2);
             text-shadow: 2px 2px 10px white, -2px -2px 10px red;
             box-shadow: 0 0 50px red, 0 0 30px white;
-            animation: glitchText 0.1s infinite alternate, pulse 2s infinite alternate, wobble 0.5s infinite alternate;
+            animation: glitchText 0.1s infinite alternate, pulse 2s infinite alternate, wobble 0.5s infinite alternate, moveAround 5s infinite;
         }
 
         /* 🎭 BUTTON TEXT GLITCHES */
@@ -53,37 +53,27 @@
             100% { transform: translate(-50%, -50%) rotate(2deg); }
         }
 
-        /* 🌀 BUTTON TWISTS MORE ON HOVER */
-        .hellButton:hover {
-            filter: blur(2px) brightness(2) contrast(3);
-            transform: translate(-50%, -50%) rotate(10deg) scale(1.4);
-            background-color: black;
-            border-color: red;
-            color: red;
-            text-shadow: 5px 5px 20px red, -5px -5px 20px white;
-            box-shadow: 0 0 80px white, 0 0 50px red;
-            animation: glitchTextHover 0.1s infinite alternate, shake 0.1s infinite;
+        /* 🌀 BUTTON MOVES AROUND ON ITS OWN */
+        @keyframes moveAround {
+            0% { left: 50%; top: 50%; }
+            25% { left: 20%; top: 30%; }
+            50% { left: 80%; top: 70%; }
+            75% { left: 40%; top: 20%; }
+            100% { left: 50%; top: 50%; }
         }
 
-        /* 📉 BUTTON FLICKERS ON HOVER */
-        @keyframes glitchTextHover {
-            0% { text-shadow: 5px 5px 20px white, -5px -5px 20px red; }
-            100% { text-shadow: -5px -5px 20px white, 5px 5px 20px red; }
+        /* 🔥 SCREEN RANDOMLY FLICKERS */
+        @keyframes flicker {
+            0% { filter: hue-rotate(0deg) blur(0px); }
+            50% { filter: hue-rotate(90deg) blur(5px); }
+            100% { filter: hue-rotate(180deg) blur(2px); }
         }
-
-        /* 🤯 BUTTON SHAKES ON HOVER */
-        @keyframes shake {
-            0%, 100% { transform: translate(-50%, -50%) rotate(10deg) scale(1.4); }
-            25% { transform: translate(-48%, -50%) rotate(12deg); }
-            50% { transform: translate(-52%, -50%) rotate(8deg); }
-            75% { transform: translate(-49%, -50%) rotate(11deg); }
-        }
-
+        
     </style>
 </head>
 <body>
 
-    <button id="hellButton" class="hellButton">🔊 CURSED ENTRY</button>
+    <button id="hellButton" class="hellButton">🔊 IT'S ALWAYS WATCHING</button>
     <audio id="elevatorMusic" loop autoplay>
         <source src="https://www.myinstants.com/media/sounds/elevator-music.mp3" type="audio/mpeg">
     </audio>
@@ -93,12 +83,28 @@
             const button = document.getElementById("hellButton");
             const elevatorMusic = document.getElementById("elevatorMusic");
 
-            // MUSIC PLAYS FOREVER
             function playMusic() {
                 elevatorMusic.volume = 0.5;
                 elevatorMusic.play();
             }
             playMusic();
+
+            // RANDOM EVENTS EVERY FEW SECONDS
+            function randomEvent() {
+                const events = [
+                    () => { document.body.style.backgroundColor = `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`; },
+                    () => { document.body.style.animation = "flicker 2s infinite"; setTimeout(() => { document.body.style.animation = ""; }, 5000); },
+                    () => { let whisper = new Audio("https://www.myinstants.com/media/sounds/creepy-whisper.mp3"); whisper.play(); },
+                    () => { button.innerText = ["👁️ I SEE YOU", "RUN", "🔪 TOO LATE", "👀 WATCHING", "YOU CAN'T ESCAPE"][Math.floor(Math.random() * 5)]; },
+                    () => { document.title = ["ERROR: SYSTEM FAILING", "DON'T LOOK BEHIND YOU", "IT'S TOO LATE", "NO ESCAPE"][Math.floor(Math.random() * 4)]; },
+                    () => { let newText = document.createElement("p"); newText.innerText = "🔮 IT'S MOVING ON ITS OWN..."; newText.style.position = "absolute"; newText.style.left = Math.random() * window.innerWidth + "px"; newText.style.top = Math.random() * window.innerHeight + "px"; newText.style.color = "red"; newText.style.fontSize = "30px"; document.body.appendChild(newText); setTimeout(() => { newText.remove(); }, 5000); },
+                    () => { button.style.left = Math.random() * window.innerWidth + "px"; button.style.top = Math.random() * window.innerHeight + "px"; },
+                    () => { button.style.transform = `rotate(${Math.random() * 360}deg) scale(${Math.random() * 1.5 + 0.5})`; },
+                ];
+                events[Math.floor(Math.random() * events.length)]();
+            }
+
+            setInterval(randomEvent, 4000);
 
             // BUTTON ESCAPES ON HOVER
             button.addEventListener("mouseenter", function () {
