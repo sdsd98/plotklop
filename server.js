@@ -1,7 +1,6 @@
 
 const nodemailer = require("nodemailer");
 
-// Configure Nodemailer
 const transporter = nodemailer.createTransport({
   service: "gmail", // Use your email service (e.g., Gmail, Outlook)
   auth: {
@@ -9,6 +8,7 @@ const transporter = nodemailer.createTransport({
       pass: "euno yjri bygc rcvv"  // Your email password or app password
   }
 });
+
 
 const crypto = require("crypto"); // For generating reset tokens
 
