@@ -138,10 +138,12 @@ app.get("/isLoggedIn", verifyToken, (req, res) => {
   res.json({ loggedIn: true, user: req.user });
 });
 
+
 // 🔹 Logout Endpoint (Clears Cookie)
 app.post("/logout", (req, res) => {
   res.clearCookie("token").json({ success: true, message: "Logged out successfully!" });
 });
+
 
 // 🚀 Start Server
 app.listen(PORT, "0.0.0.0", () => {
