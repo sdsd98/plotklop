@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(data => {
             alert(data.message); // Show logout success message
-            window.location.href = "/login.html"; // Redirect to login page
+            window.location.href = "/index.html"; 
         })
         .catch(error => console.error("❌ Logout failed:", error));
     });
