@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             const data = await response.json();
+            console.log("Response from server:", data); // Log the response data to the console
 
             if (response.ok) {
                 alert("✅ Registration successful!");
@@ -55,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 registerMessage.style.color = "red";
             }
         } catch (error) {
+            console.error("❌ Error during registration:", error); // Log error to the console for debugging
             registerMessage.textContent = "❌ An error occurred while registering!";
             registerMessage.style.color = "red";
         } finally {
@@ -63,3 +65,4 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
