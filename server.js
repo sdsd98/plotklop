@@ -9,6 +9,7 @@ const cors = require("cors");
 const path = require("path");
 const crypto = require("crypto"); // ✅ Only once at the top of the file
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs"); // ✅ Added bcrypt for password hashing
 
 // Initialize the Express app first
 const app = express();
@@ -68,7 +69,35 @@ app.use(
   })
 );
 
-// Routes and endpoints
+// Route to handle user registration
+app.post("/register", async (req, res) => {
+  const { username, email, password } = req.body;
+
+  if (!username || !email || !password) {
+    return res.status(400).json({ error: "All fields are required!" });
+  }
+
+  try {
+    // Check if the email is already in use
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email already in use!" });
+    }
+
+    // Hash the password using bcrypt before saving it to the database
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 salt rounds
+
+    const newUser = new User({ username, email, password: hashedPassword });
+    await newUser.save();
+
+    res.status(201).json({ message: "User registered successfully!" });
+  } catch (err) {
+    console.error("❌ Error during registration:", err);
+    res.status(500).json({ error: "Registration failed!" });
+  }
+});
+
+// Routes and endpoints for other functionalities like password reset
 app.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
   if (!email) {
@@ -101,8 +130,6 @@ app.post("/forgot-password", async (req, res) => {
     res.status(500).json({ error: "Failed to process request." });
   }
 });
-
-// Add other routes here...
 
 // Start the server
 app.listen(PORT, "0.0.0.0", () => {
