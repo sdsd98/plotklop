@@ -1,6 +1,9 @@
 
 const nodemailer = require("nodemailer");
 
+const nodemailer = require("nodemailer");
+const crypto = require("crypto"); // ✅ Only once at the top of the file
+
 const transporter = nodemailer.createTransport({
   service: "gmail", // Use your email service (e.g., Gmail, Outlook)
   auth: {
@@ -9,8 +12,11 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+// Your existing code continues below...
 
-const crypto = require("crypto"); // For generating reset tokens
+
+
+
 
 app.post("/forgot-password", async (req, res) => {
     const { email } = req.body;
@@ -89,7 +95,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const crypto = require("crypto"); // ✅ Built-in module for SHA-256 hashing
+
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
