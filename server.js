@@ -1,3 +1,89 @@
+
+const nodemailer = require("nodemailer");
+
+// Configure Nodemailer
+const transporter = nodemailer.createTransport({
+    service: "gmail", // Use your email service (e.g., Gmail, Outlook)
+    auth: {
+        user: process.env.EMAIL_USER, // Your email address
+        pass: process.env.EMAIL_PASS  // Your email password (Use App Passwords for security)
+    }
+});
+const crypto = require("crypto"); // For generating reset tokens
+
+app.post("/forgot-password", async (req, res) => {
+    const { email } = req.body;
+    if (!email) {
+        return res.status(400).json({ error: "Email is required!" });
+    }
+
+    try {
+        // Check if user exists
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ error: "User not found!" });
+        }
+
+        // Generate a secure random reset token
+        const resetToken = crypto.randomBytes(32).toString("hex");
+
+        // Store the token in the database (you need to modify your User schema)
+        user.resetToken = resetToken;
+        user.resetTokenExpiration = Date.now() + 3600000; // Token expires in 1 hour
+        await user.save();
+
+        // Send password reset email
+        const resetLink = `https://opravdova-webovka.onrender.com/reset-password.html?token=${resetToken}`;
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: user.email,
+            subject: "Password Reset Request",
+            html: `<p>Click the link below to reset your password:</p>
+                   <a href="${resetLink}">${resetLink}</a>
+                   <p>This link is valid for 1 hour.</p>`
+        };
+
+        await transporter.sendMail(mailOptions);
+        res.json({ message: "Password reset link has been sent to your email!" });
+
+    } catch (err) {
+        console.error("❌ Error in forgot password:", err);
+        res.status(500).json({ error: "Failed to process request." });
+    }
+});
+app.post("/reset-password", async (req, res) => {
+  const { token, newPassword } = req.body;
+  if (!token || !newPassword) {
+      return res.status(400).json({ error: "All fields are required!" });
+  }
+
+  try {
+      // Find the user with the matching token
+      const user = await User.findOne({
+          resetToken: token,
+          resetTokenExpiration: { $gt: Date.now() } // Ensure token is still valid
+      });
+
+      if (!user) {
+          return res.status(400).json({ error: "Invalid or expired token!" });
+      }
+
+      // Hash the new password and save it
+      user.password = crypto.createHash("sha256").update(newPassword).digest("hex");
+      user.resetToken = undefined; // Clear reset token
+      user.resetTokenExpiration = undefined;
+      await user.save();
+
+      res.json({ message: "Password has been reset successfully!" });
+
+  } catch (err) {
+      console.error("❌ Error resetting password:", err);
+      res.status(500).json({ error: "Failed to reset password." });
+  }
+});
+
+
+
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
@@ -7,6 +93,7 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require("path");
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
