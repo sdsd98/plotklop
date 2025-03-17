@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/sdsd98/plotklop#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
