@@ -68,6 +68,39 @@ app.use(
     optionsSuccessStatus: 200, // ✅ Prevents CORS preflight errors in some browsers
   })
 );
+// Route to handle user login
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ error: "Username and password are required!" });
+  }
+
+  try {
+    // Najdeme uživatele podle uživatelského jména
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ error: "User not found!" });
+    }
+
+    // Porovnáme heslo
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Invalid password!" });
+    }
+
+    // Vytvoříme JWT token
+    const token = jwt.sign({ userId: user._id }, SECRET_KEY, { expiresIn: "1h" });
+
+    // Uložíme token do cookie
+    res.cookie("token", token, { httpOnly: true, secure: true, sameSite: "Strict" });
+
+    res.json({ message: "Login successful!" });
+  } catch (err) {
+    console.error("❌ Login error:", err);
+    res.status(500).json({ error: "Login failed!" });
+  }
+});
 
 // Route to handle user registration
 app.post("/register", async (req, res) => {
