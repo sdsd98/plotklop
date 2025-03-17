@@ -1,74 +1,69 @@
-// Required dependencies
+// server.js
+
+// ✅ Required dependencies
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const nodemailer = require("nodemailer"); // Place this after express import
+const nodemailer = require("nodemailer");
 const cors = require("cors");
-const path = require("path");
-const crypto = require("crypto"); // ✅ Only once at the top of the file
+const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs"); // ✅ Added bcrypt for password hashing
+const bcrypt = require("bcryptjs");
 
-// Initialize the Express app first
+// ✅ Initialize Express app
 const app = express();
-
-// MongoDB connection URI and JWT secret key
 const PORT = process.env.PORT || 3000;
 const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
 
-// MongoDB Atlas connection
+// ✅ MongoDB Atlas connection
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("✅ MongoDB connected successfully"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// Define User Schema and Model
+// ✅ Define User Schema and Model
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  resetToken: { type: String }, // ✅ Přidáno resetToken pro obnovu hesla
+  resetTokenExpiration: { type: Date }, // ✅ Přidána expirace tokenu
 });
 const User = mongoose.model("User", userSchema);
 
-// Email transport setup (nodemailer)
+// ✅ Email transport setup (nodemailer)
 const transporter = nodemailer.createTransport({
-  service: "gmail", // Use your email service (e.g., Gmail, Outlook)
+  service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER, // Your email address
-    pass: process.env.EMAIL_PASS, // Your email password or app password
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
-// Middleware
+// ✅ Middleware
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(__dirname));
 
-// CORS configuration
-const allowedOrigins = [
-  "http://localhost:5500", // ✅ Local development
-  "https://opravdova-webovka.onrender.com", // ✅ Your Render frontend URL
-];
-
+// ✅ CORS configuration
+const allowedOrigins = ["http://localhost:5500", "https://opravdova-webovka.onrender.com"];
 app.use(
   cors({
     origin: function (origin, callback) {
       if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true); // ✅ Allow the request
+        callback(null, true);
       } else {
         callback(new Error("CORS policy does not allow this origin."), false);
       }
     },
-    credentials: true, // ✅ Allow cookies (needed for JWT authentication)
-    optionsSuccessStatus: 200, // ✅ Prevents CORS preflight errors in some browsers
+    credentials: true,
+    optionsSuccessStatus: 200,
   })
 );
-// Route to handle user login
+
+// ✅ Login route
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -77,22 +72,17 @@ app.post("/login", async (req, res) => {
   }
 
   try {
-    // Najdeme uživatele podle uživatelského jména
     const user = await User.findOne({ username });
     if (!user) {
       return res.status(404).json({ error: "User not found!" });
     }
 
-    // Porovnáme heslo
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ error: "Invalid password!" });
     }
 
-    // Vytvoříme JWT token
     const token = jwt.sign({ userId: user._id }, SECRET_KEY, { expiresIn: "1h" });
-
-    // Uložíme token do cookie
     res.cookie("token", token, { httpOnly: true, secure: true, sameSite: "Strict" });
 
     res.json({ message: "Login successful!" });
@@ -102,35 +92,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Route to handle user registration
-app.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
-
-  if (!username || !email || !password) {
-    return res.status(400).json({ error: "All fields are required!" });
-  }
-
-  try {
-    // Check if the email is already in use
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ error: "Email already in use!" });
-    }
-
-    // Hash the password using bcrypt before saving it to the database
-    const hashedPassword = await bcrypt.hash(password, 10); // 10 salt rounds
-
-    const newUser = new User({ username, email, password: hashedPassword });
-    await newUser.save();
-
-    res.status(201).json({ message: "User registered successfully!" });
-  } catch (err) {
-    console.error("❌ Error during registration:", err);
-    res.status(500).json({ error: "Registration failed!" });
-  }
-});
-
-// Routes and endpoints for other functionalities like password reset
+// ✅ Route for password reset request (forgot password)
 app.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
   if (!email) {
@@ -145,10 +107,10 @@ app.post("/forgot-password", async (req, res) => {
 
     const resetToken = crypto.randomBytes(32).toString("hex");
     user.resetToken = resetToken;
-    user.resetTokenExpiration = Date.now() + 3600000; // Token expires in 1 hour
+    user.resetTokenExpiration = Date.now() + 3600000; // 1 hodina platnosti
     await user.save();
 
-    const resetLink = `https://your-website.com/reset-password.html?token=${resetToken}`;
+    const resetLink = `https://opravdova-webovka.onrender.com/reset-password.html?token=${resetToken}`;
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: user.email,
@@ -164,7 +126,59 @@ app.post("/forgot-password", async (req, res) => {
   }
 });
 
-// Start the server
+// ✅ Route to handle password reset
+app.post("/reset-password", async (req, res) => {
+  const { token, newPassword } = req.body;
+
+  if (!token || !newPassword) {
+    return res.status(400).json({ error: "Invalid request!" });
+  }
+
+  try {
+    const user = await User.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } });
+
+    if (!user) {
+      return res.status(400).json({ error: "Invalid or expired token!" });
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    user.resetToken = undefined;
+    user.resetTokenExpiration = undefined;
+    await user.save();
+
+    res.json({ message: "✅ Password reset successful!" });
+  } catch (err) {
+    console.error("❌ Reset password error:", err);
+    res.status(500).json({ error: "Failed to reset password!" });
+  }
+});
+
+// ✅ User registration route
+app.post("/register", async (req, res) => {
+  const { username, email, password } = req.body;
+
+  if (!username || !email || !password) {
+    return res.status(400).json({ error: "All fields are required!" });
+  }
+
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email already in use!" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ username, email, password: hashedPassword });
+    await newUser.save();
+
+    res.status(201).json({ message: "User registered successfully!" });
+  } catch (err) {
+    console.error("❌ Error during registration:", err);
+    res.status(500).json({ error: "Registration failed!" });
+  }
+});
+
+// ✅ Start the server
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
