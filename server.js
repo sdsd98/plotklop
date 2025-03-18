@@ -118,6 +118,35 @@ app.post("/forgot-password", async (req, res) => {
       subject: "Password Reset Request",
       html: `<p>Click the link below to reset your password:</p><a href="${resetLink}">${resetLink}</a><p>This link is valid for 1 hour.</p>`,
     };
+// ✅ Reset Password - Nastavení nového hesla
+app.post("/reset-password", async (req, res) => {
+  const { token, newPassword } = req.body;
+
+  if (!token || !newPassword) {
+    return res.status(400).json({ error: "Invalid request! Missing token or password." });
+  }
+
+  try {
+    console.log("🔍 Debug: Hledám uživatele s tokenem:", token);
+    const user = await User.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } });
+
+    if (!user) {
+      console.error("❌ Debug: Token je neplatný nebo expiroval.");
+      return res.status(400).json({ error: "Invalid or expired token!" });
+    }
+
+    console.log("✅ Debug: Token nalezen, resetuji heslo...");
+    user.password = await bcrypt.hash(newPassword, 10);
+    user.resetToken = undefined;
+    user.resetTokenExpiration = undefined;
+    await user.save();
+
+    res.json({ message: "✅ Password reset successful!" });
+  } catch (err) {
+    console.error("❌ Reset password error:", err);
+    res.status(500).json({ error: "Failed to reset password!" });
+  }
+});
 
     // ✅ Ujistíme se, že je `await` uvnitř `async` funkce
     await transporter.sendMail(mailOptions);
