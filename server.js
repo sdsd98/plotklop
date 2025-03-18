@@ -92,7 +92,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-
 // ✅ Forgot Password - Poslání resetovacího emailu
 app.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
@@ -119,6 +118,7 @@ app.post("/forgot-password", async (req, res) => {
       html: `<p>Click the link below to reset your password:</p><a href="${resetLink}">${resetLink}</a><p>This link is valid for 1 hour.</p>`,
     };
 
+    // ✅ Ensure `await` is inside an `async` function
     await transporter.sendMail(mailOptions);
     res.json({ message: "Password reset link has been sent to your email!" });
   } catch (err) {
@@ -156,14 +156,6 @@ app.post("/reset-password", async (req, res) => {
     res.status(500).json({ error: "Failed to reset password!" });
   }
 });
-    // ✅ Ujistíme se, že je `await` uvnitř `async` funkce
-    await transporter.sendMail(mailOptions);
-    res.json({ message: "Password reset link has been sent to your email!" });
-  } catch (err) {
-    console.error("❌ Error in forgot password:", err);
-    res.status(500).json({ error: "Failed to process request." });
-  }
-});
 
 // ✅ User registration route
 app.post("/register", async (req, res) => {
@@ -189,27 +181,28 @@ app.post("/register", async (req, res) => {
     res.status(500).json({ error: "Registration failed!" });
   }
 });
+
 // ✅ Check if user is logged in
 app.get("/isLoggedIn", (req, res) => {
   const token = req.cookies.token;
 
   if (!token) {
-      return res.json({ loggedIn: false });
+    return res.json({ loggedIn: false });
   }
 
   try {
-      const decoded = jwt.verify(token, SECRET_KEY);
-      res.json({ loggedIn: true, userId: decoded.userId });
+    const decoded = jwt.verify(token, SECRET_KEY);
+    res.json({ loggedIn: true, userId: decoded.userId });
   } catch (err) {
-      res.json({ loggedIn: false });
+    res.json({ loggedIn: false });
   }
 });
+
 // ✅ Logout endpoint
 app.post("/logout", (req, res) => {
   res.clearCookie("token");
   res.json({ message: "✅ Successfully logged out!" });
 });
-
 
 // ✅ Start the server
 app.listen(PORT, "0.0.0.0", () => {
