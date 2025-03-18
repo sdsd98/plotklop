@@ -3,15 +3,18 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const loginIcon = document.getElementById("login-icon");
     const authButtons = document.querySelectorAll(".nav_button"); // Select both login & register buttons
+    const logoutButton = document.getElementById("logout-button");
 
-    if (!loginIcon || authButtons.length === 0) {
-        console.error("⚠️ UI elements missing: Make sure the IDs and classes are correct.");
+    if (!loginIcon || authButtons.length === 0 || !logoutButton) {
+        console.error("⚠️ UI elements missing: Check IDs and classes.");
         return;
     }
 
     try {
-        // ✅ Opravená cesta na `/check-auth` (ne `/isLoggedIn`)
-        const response = await fetch(`${BASE_URL}/check-auth`, {
+        console.log("🔍 Checking login status...");
+
+        // ✅ Opravená cesta: `/isLoggedIn` místo `/check-auth`
+        const response = await fetch(`${BASE_URL}/isLoggedIn`, {
             method: "GET",
             credentials: "include", // ✅ Sends cookies (JWT authentication)
         });
@@ -21,15 +24,22 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         const data = await response.json();
+        console.log("🔍 Server response:", data);
 
-        if (data.authenticated) {
+        if (data.loggedIn) {
             loginIcon.style.display = "block";  // ✅ Show login icon
             authButtons.forEach(button => button.style.display = "none"); // ❌ Hide login/register buttons
+            logoutButton.style.display = "inline-block"; // ✅ Show logout button
         } else {
             loginIcon.style.display = "none";  // ❌ Hide login icon
             authButtons.forEach(button => button.style.display = "inline-block"); // ✅ Show login/register buttons
+            logoutButton.style.display = "none"; // ❌ Hide logout button
         }
     } catch (error) {
         console.error("❌ Error checking login status:", error);
     }
+});
+logoutButton.addEventListener("click", async () => {
+    await fetch(`${BASE_URL}/logout`, { method: "POST", credentials: "include" });
+    window.location.reload(); 
 });

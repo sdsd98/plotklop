@@ -167,6 +167,12 @@ app.get("/isLoggedIn", (req, res) => {
       res.json({ loggedIn: false });
   }
 });
+// ✅ Logout endpoint
+app.post("/logout", (req, res) => {
+  res.clearCookie("token");
+  res.json({ message: "✅ Successfully logged out!" });
+});
+
 
 // ✅ Start the server
 app.listen(PORT, "0.0.0.0", () => {
