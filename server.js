@@ -152,6 +152,21 @@ app.post("/register", async (req, res) => {
     res.status(500).json({ error: "Registration failed!" });
   }
 });
+// ✅ Check if user is logged in
+app.get("/isLoggedIn", (req, res) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+      return res.json({ loggedIn: false });
+  }
+
+  try {
+      const decoded = jwt.verify(token, SECRET_KEY);
+      res.json({ loggedIn: true, userId: decoded.userId });
+  } catch (err) {
+      res.json({ loggedIn: false });
+  }
+});
 
 // ✅ Start the server
 app.listen(PORT, "0.0.0.0", () => {

@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     try {
-        const response = await fetch(`${BASE_URL}/isLoggedIn`, {
+        // ✅ Opravená cesta na `/check-auth` (ne `/isLoggedIn`)
+        const response = await fetch(`${BASE_URL}/check-auth`, {
             method: "GET",
             credentials: "include", // ✅ Sends cookies (JWT authentication)
         });
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const data = await response.json();
 
-        if (data.loggedIn) {
+        if (data.authenticated) {
             loginIcon.style.display = "block";  // ✅ Show login icon
             authButtons.forEach(button => button.style.display = "none"); // ❌ Hide login/register buttons
         } else {
