@@ -92,70 +92,39 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// ✅ Route for password reset request (forgot password)
-app.post("/reset-password", async (req, res) => {
-  const { token, newPassword } = req.body;
 
-  if (!token || !newPassword) {
-    console.error("❌ Debug: Chybí token nebo heslo", { token, newPassword });
-    return res.status(400).json({ error: "Invalid request!" });
+// ✅ Forgot Password - Poslání resetovacího emailu
+app.post("/forgot-password", async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ error: "Email is required!" });
   }
 
   try {
-    console.log("🔍 Debug: Hledám uživatele s tokenem:", token);
-    const user = await User.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } });
-
+    const user = await User.findOne({ email });
     if (!user) {
-      console.error("❌ Debug: Token je neplatný nebo expiroval");
-      return res.status(400).json({ error: "Invalid or expired token!" });
+      return res.status(404).json({ error: "User not found!" });
     }
 
-    console.log("✅ Debug: Token nalezen, resetuji heslo...");
-    user.password = await bcrypt.hash(newPassword, 10);
-    user.resetToken = undefined;
-    user.resetTokenExpiration = undefined;
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    user.resetToken = resetToken;
+    user.resetTokenExpiration = Date.now() + 3600000; // 1 hodina platnosti
     await user.save();
 
-    res.json({ message: "✅ Password reset successful!" });
-  } catch (err) {
-    console.error("❌ Reset password error:", err);
-    res.status(500).json({ error: "Failed to reset password!" });
-  }
-});
+    const resetLink = `https://opravdova-webovka.onrender.com/reset-password.html?token=${resetToken}`;
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: user.email,
+      subject: "Password Reset Request",
+      html: `<p>Click the link below to reset your password:</p><a href="${resetLink}">${resetLink}</a><p>This link is valid for 1 hour.</p>`,
+    };
 
-
+    // ✅ Ujistíme se, že je `await` uvnitř `async` funkce
     await transporter.sendMail(mailOptions);
     res.json({ message: "Password reset link has been sent to your email!" });
   } catch (err) {
     console.error("❌ Error in forgot password:", err);
     res.status(500).json({ error: "Failed to process request." });
-  }
-});
-
-// ✅ Route to handle password reset
-app.post("/reset-password", async (req, res) => {
-  const { token, newPassword } = req.body;
-
-  if (!token || !newPassword) {
-    return res.status(400).json({ error: "Invalid request!" });
-  }
-
-  try {
-    const user = await User.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } });
-
-    if (!user) {
-      return res.status(400).json({ error: "Invalid or expired token!" });
-    }
-
-    user.password = await bcrypt.hash(newPassword, 10);
-    user.resetToken = undefined;
-    user.resetTokenExpiration = undefined;
-    await user.save();
-
-    res.json({ message: "✅ Password reset successful!" });
-  } catch (err) {
-    console.error("❌ Reset password error:", err);
-    res.status(500).json({ error: "Failed to reset password!" });
   }
 });
 
