@@ -118,7 +118,16 @@ app.post("/forgot-password", async (req, res) => {
       subject: "Password Reset Request",
       html: `<p>Click the link below to reset your password:</p><a href="${resetLink}">${resetLink}</a><p>This link is valid for 1 hour.</p>`,
     };
-// ✅ Reset Password - Nastavení nového hesla
+
+    await transporter.sendMail(mailOptions);
+    res.json({ message: "Password reset link has been sent to your email!" });
+  } catch (err) {
+    console.error("❌ Error in forgot password:", err);
+    res.status(500).json({ error: "Failed to process request." });
+  }
+});
+
+// ✅ Reset Password - OPRAVENO! Teď je mimo `/forgot-password`
 app.post("/reset-password", async (req, res) => {
   const { token, newPassword } = req.body;
 
@@ -147,7 +156,6 @@ app.post("/reset-password", async (req, res) => {
     res.status(500).json({ error: "Failed to reset password!" });
   }
 });
-
     // ✅ Ujistíme se, že je `await` uvnitř `async` funkce
     await transporter.sendMail(mailOptions);
     res.json({ message: "Password reset link has been sent to your email!" });
